@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 통합 상담센터</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div>
+            <a href="/mypage"><i class="fa-solid fa-house"></i> &nbsp; 마이페이지</a>
+            <a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp; 로그아웃</a>
+        </div>
+        <div>
+            <span>환영합니다, <strong>{{username}}</strong>님!</span>
+        </div>
+    </header>
+    <nav>
+        <h1 onclick="window.location.href='main.html'">학생통합상담센터</h1>
+        <a href="#" onclick="window.location.href='center.html'">센터 소개</a>
+        <a href="#" onclick="window.location.href='advice-person.html'">개인 상담</a>
+        <a href="#" onclick="window.location.href='program-peer.html'">프로그램</a>
+        <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
+    </nav>
+    <div class="main-banner">
+        <h1> 학생통합상담센터에서<br>
+            학생 여러분의 마음의 짐을 함께 덜어드립니다.</h1>
+        <p>혼자 고민하지 마세요.</p>
+    </div>
+
+    <div class="steps">
+        <h2>상담 절차</h2>
+        <div class="button-row">
+            <div class="select">
+                <div class="button-container">
+                    <button>개인 상담 절차 ▶</button>
+                    <button>심리 상담 절차 ▶</button>
+                </div>
+            </div>
+            <ul>
+                <div class="icon-order">
+                    <i class="fa-solid fa-school"></i>
+                    <div class="text-order">상담신청</div>
+                </div>
+                <i class="fa-solid fa-arrow-right"></i>
+
+                <div class="icon-order">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    <div class="text-order">심리검사</div>
+                </div>
+                <i class="fa-solid fa-arrow-right"></i>
+
+                <div class="icon-order">
+                    <i class="fa-regular fa-calendar-days"></i>
+                    <div class="text-order">상담시간 예약</div>
+                </div>
+                <i class="fa-solid fa-arrow-right"></i>
+
+                <div class="icon-order">
+                    <i class="fa-solid fa-hand-holding"></i>
+                    <div class="text-order">개인상담 진행</div>
+                </div>
+
+            </ul>
+        </div>
+    </div>
+    <div class="content-row">
+        <div class="section">
+            <h2>공지사항</h2>
+            <ul>
+                <li>새로운 서비스가 출시되었습니다!</li>
+                <li>시스템 점검 안내: 12월 1일</li>
+                <li>추석 연휴 고객센터 운영시간 안내</li>
+            </ul>
+        </div>
+        <div class="middle-buttons">
+            <h2>자주 찾는 서비스</h2>
+            <div class="service">
+                <div class="first">
+                    <button>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        개인 상담
+                    </button>
+                    <button>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-user-group"></i>
+                        </div>
+                        집단 상담
+                    </button>
+                    <button>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-user-pen"></i>
+                        </div>
+                        심리 검사
+                    </button>
+                </div>
+                <div class="second">
+                    <button>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-user-doctor"></i>
+                        </div>
+                        취업&진로
+                    </button>
+
+                    <button>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-chalkboard"></i>
+                        </div>
+                        자유게시판
+                    </button>
+
+                    <button>
+                        <div class="icon-container">
+                            <i class="fa-solid fa-book-open"></i>
+                        </div>
+                        프로그램 안내
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="advertisement">
+            광고 배너 영역
+        </div>
+    </div>
+    <div class="last-buttons">
+        <h2>QUICK SERVICE</h2>
+        <div>대학 주요서비스를<br>빠르게 안내해드립니다.</div>
+        <button>이벤트 참여</button>
+        <button>할인 정보</button>
+        <button>공지 더보기</button>
+    </div>
+</div>
+<footer>
+    <p>
+        <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+    </p>
+</footer>
+</body>
+</html>
+
+

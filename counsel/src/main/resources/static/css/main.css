@@ -1,0 +1,299 @@
+/* 기본 스타일 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+}
+
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨테이너 최대 너비 */
+.container {
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    width: 100%;
+    display: flex;
+    padding-bottom: 100px;
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+}
+
+header div {
+    margin-left: 14%;
+}
+
+header a {
+    color: #333; /* 가독성을 위한 색상 */
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+header i {
+    font-size: 14px;
+}
+
+/* 네비게이션 */
+nav {
+    background: white;
+    border: 1px solid #eee;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav h1 {
+    display: inline-block;
+    margin-right: 15%;
+}
+
+nav a {
+    margin: 0 70px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+nav a:hover {
+
+}
+
+/* 메인 배너 */
+.main-banner {
+    background: url('https://via.placeholder.com/1920x400') no-repeat center center/cover;
+    height: 400px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.steps{
+
+    justify-content: center;
+    gap: 15px;
+    padding: 50px 0;
+    background: #f9f9f9;
+}
+
+.steps h2 {
+    margin-left: 17%;
+    font-weight: bold;
+
+}
+
+.steps ul {
+
+    align-items: center;
+    border: none;             /* 테두리 제거 */
+    border-radius: 8px;       /* 버튼 모서리 둥글게 */
+    font-size: 14px;          /* 텍스트 크기 */
+}
+
+
+.steps .icon-order i {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    width: 120px;             /* 버튼의 너비를 줄임 */
+    height: 120px;
+    text-align: center ;
+    border-radius: 30px;
+    border: 1px solid #666;
+    box-shadow: 0 0 10px rgba(209, 209, 209, 0.5);
+    color: #444;
+    background-color: white; /* 버튼 배경색 */
+    border: 1px solid #ccc;
+    font-size: 4em;           /* 아이콘을 크게 설정 */
+    margin-bottom: 10px;       /* 아이콘과 텍스트 사이 간격 */
+}
+
+
+
+.steps .text-order {
+    font-weight: bold;
+    padding-top: 10%;
+    text-align: center ;
+    color: black;
+    display: block;           /* 아이콘을 블록 요소로 설정 */
+    margin-bottom: 10px;      /* 아이콘과 텍스트 사이 간격 추가 */
+}
+
+
+/* 버튼 행 스타일 */
+.button-row {
+    display: flex;
+    margin-left: 15%;
+    gap: 15px;
+    padding: 20px 0;
+    background: #f9f9f9;
+}
+
+.button-row ul {
+
+    display: flex;
+    gap: 80px;
+}
+
+.button-row button {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 15px 40px;
+    font-size: 16px;
+    border: none;
+    background: #eee;
+    color: #777;
+    border-radius: 0 10px 0 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button-row button:hover {
+    font-weight: bold;
+    color: black;
+    background: #fff;
+}
+
+/* 콘텐츠 영역 */
+.content-row {
+
+    margin: 70px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    background-color: white; /* 배경색을 추가해줌 */
+}
+
+.section {
+    margin-left: 14%;
+    flex: 1;
+    background: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.middle-buttons .service {
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 0 10px 0 10px;
+}
+
+.middle-buttons button {
+    font-weight: bold;
+    display: inline-block;    /* 버튼을 인라인 블록으로 표시 */
+    width: 110px;             /* 버튼의 너비를 줄임 */
+    height: 110px;            /* 버튼의 높이 설정 */
+    text-align: center;       /* 텍스트 가운데 정렬 */
+    background-color: #333; /* 버튼 배경색 */
+    color: white;             /* 텍스트 색 */
+    border: none;             /* 테두리 제거 */
+    border-radius: 5px;       /* 버튼 모서리 둥글게 */
+    font-size: 15px;          /* 텍스트 크기 */
+    cursor: pointer;         /* 커서 포인터 */
+    transition: background-color 0.3s; /* 배경색 변경 효과 */
+}
+
+/* 버튼 위에 있는 아이콘 스타일 */
+.middle-buttons button .icon-container {
+    font-size: 2em;           /* 아이콘을 크게 설정 */
+    margin-bottom: 10px;       /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 버튼에 마우스를 올렸을 때 색상 변화 */
+.middle-buttons button:hover {
+    background-color: #555; /* 마우스를 올렸을 때 배경색 변경 */
+}
+
+/* 버튼의 텍스트 스타일 */
+.middle-buttons button i {
+    display: block;           /* 아이콘을 블록 요소로 설정 */
+    margin-bottom: 10px;      /* 아이콘과 텍스트 사이 간격 추가 */
+}
+
+.advertisement {
+
+    width: 100px;             /* 버튼의 너비를 줄임 */
+    height: 300px;
+    margin-right: 15%;
+    flex: 1;
+    background: #0078d7;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    border-radius: 0px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+
+.last-buttons h2 {
+    margin-left: 17%;
+}
+
+.last-buttons div {
+    margin-left: 17%;
+    margin-right: 10%;
+    display: inline-block;
+    margin-bottom: 100px;
+}
+
+.last-buttons button {
+    margin-left: 10px;
+    padding: 18px 105px;
+    font-size: 14px;
+    background: #eee;
+    color: black;
+    border: none;
+    border-radius: 0 10px 0 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.last-buttons button:hover {
+    background: white;
+    border: 1px solid black;
+}
+
+/* 푸터 */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+footer a {
+    color: #0078d7;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
