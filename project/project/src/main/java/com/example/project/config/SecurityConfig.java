@@ -27,8 +27,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER") // 마이페이지 접근 허용
+                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER","STUDENT","TEACHER")
+                        .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER","STUDENT") // 마이페이지 접근 허용
                         .anyRequest().authenticated()
                 )
                 .formLogin(auth -> auth
