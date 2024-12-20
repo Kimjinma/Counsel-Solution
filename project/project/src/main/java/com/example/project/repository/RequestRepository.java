@@ -1,4 +1,3 @@
-/*
 package com.example.project.repository;
 
 
@@ -11,8 +10,7 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends JpaRepository<RequestEntity, Integer> {
-    List<RequestEntity> findByStudentNo_StudentNo(String studentNo);
-
+     /*RequestEntity findByCounselor_EMPNO(String empNo);*/
+     List<RequestEntity> findBystudentNo_studentNo(String studentNo);
 
 }
-*/

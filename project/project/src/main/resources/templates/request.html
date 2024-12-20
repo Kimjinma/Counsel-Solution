@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Request List</title>
+  <title>학생 통합 상담 센터</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -12,45 +14,42 @@
     th, td {
       border: 1px solid #ddd;
       padding: 8px;
-      text-align: left;
+      text-align: center;
     }
     th {
-      background-color: #f4f4f4;
+      background-color: #f2f2f2;
+      font-weight: bold;
     }
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
+    h1 {
+      margin-bottom: 20px;
     }
   </style>
 </head>
 <body>
-<h1>학생 상담 신청 현황</h1>
-
-<!-- 상담 신청 현황 테이블 -->
+<h1>마이페이지</h1>
 <table>
   <thead>
   <tr>
-    <th>신청 번호</th>
-    <th>일정 번호</th>
-    <th>상담 진행 상태</th>
-    <th>상담 통합 번호</th>
-    <th>상담 내용</th>
+    <th>번호</th>
+    <th>상담(예약일시)</th>
+    <th>상담구분</th>
+    <th>상담사</th>
+    <th>신청일</th>
+    <th>진행상태</th>
+    <th>만족도조사</th>
   </tr>
   </thead>
   <tbody>
-  <!-- 상담 신청 리스트를 반복 출력 -->
-  <tr th:each="request : ${requests}">
-    <td th:text="${request.requestNumber}"></td>
-    <td th:text="${request.scheduleNumber}"></td>
-    <td th:text="${request.counselingProgress}"></td>
-    <td th:text="${request.counselingNumber}"></td>
-    <td th:text="${request.scheduleContents}"></td>
+  <tr th:each="request : ${counselRequests}">
+    <td th:text="${request.counselNo}"></td>
+    <td th:text="${request.scheduleDate}"></td>
+    <td th:text="${request.type}"></td>
+    <td th:text="${request.counselorName}"></td>
+    <td th:text="${request.applicationDate}"></td>
+    <td th:text="${request.status}"></td>
+    <td th:text="${request.satisfactionSurvey}"></td>
   </tr>
   </tbody>
 </table>
-
-<!-- 데이터가 없을 경우 메시지 출력 -->
-<div th:if="${#lists.isEmpty(requests)}">
-  <p>현재 등록된 상담 신청 내역이 없습니다.</p>
-</div>
 </body>
 </html>
