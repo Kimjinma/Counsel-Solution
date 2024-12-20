@@ -16,45 +16,39 @@ public class CounselorService {
     private CounselorRepository counselorRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository; // UserRepository 추가
 
     @Transactional
-    public void updateCounselor(String userNo, UpdateUserDTO updateUserDTO) {
-
-        // UserEntity 조회 (userNo 기준)
-        UserEntity userEntity = userRepository.findByUsername(userNo);
-        if (userEntity == null) {
-            throw new IllegalArgumentException("User not found with USER_NO: " + userNo);
-        }
-
-        // CounselorEntity 조회
-        CounselorEntity counselorEntity = counselorRepository.findByUser_UserNo(userEntity.getUserNo());
+    public void updateCounselorInfo(String loginId, UpdateUserDTO updateUserDTO) {
+        CounselorEntity counselorEntity = counselorRepository.findByLoginId(loginId);
         if (counselorEntity == null) {
-            throw new IllegalArgumentException("Counselor not found with USER_NO: " + userEntity.getUserNo());
+            throw new IllegalArgumentException("Counselor not found with LGN_ID: " + loginId);
         }
 
-        // 비밀번호 업데이트 (평문 저장)
-        if (updateUserDTO.getPassword() != null && !updateUserDTO.getPassword().isEmpty()) {
-            userEntity.setPassword(updateUserDTO.getPassword());
+        // UserEntity 가져오기
+        UserEntity userEntity = counselorEntity.getUser();
+        if (userEntity == null) {
+            throw new IllegalArgumentException("User not found for LGN_ID: " + loginId);
         }
 
-        // 이메일 업데이트
-        if (updateUserDTO.getEmail() != null && !updateUserDTO.getEmail().isEmpty()) {
+        // CounselorEntity 필드 업데이트
+        if (updateUserDTO.getEmail() != null) {
             counselorEntity.setEmail(updateUserDTO.getEmail());
         }
-
-        // 주소 업데이트
-        if (updateUserDTO.getAddress() != null && !updateUserDTO.getAddress().isEmpty()) {
+        if (updateUserDTO.getAddress() != null) {
             counselorEntity.setAddress(updateUserDTO.getAddress());
         }
-
-        // 전화번호 업데이트
         if (updateUserDTO.getPhoneNumber() != null) {
             counselorEntity.setMobileNumber(updateUserDTO.getPhoneNumber());
         }
 
-        // 저장소에 업데이트된 정보 저장
-        userRepository.save(userEntity);
-        counselorRepository.save(counselorEntity);
+        // UserEntity 비밀번호 업데이트
+        if (updateUserDTO.getPassword() != null && !updateUserDTO.getPassword().isEmpty()) {
+            userEntity.setPassword(updateUserDTO.getPassword());
+        }
+
+        // 변경 사항 저장
+        counselorRepository.save(counselorEntity); // CounselorEntity 저장
+        userRepository.save(userEntity); // UserEntity 저장
     }
 }

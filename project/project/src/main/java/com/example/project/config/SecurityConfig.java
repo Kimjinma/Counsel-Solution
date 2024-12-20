@@ -1,6 +1,6 @@
 package com.example.project.config;
 
-import com.example.project.service.CustomUserDetailsService;
+import com.example.project.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,9 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    private final LoginService customUserDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
+    public SecurityConfig(LoginService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
 
@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER") // 마이페이지 접근 허용
                         .anyRequest().authenticated()
                 )
                 .formLogin(auth -> auth

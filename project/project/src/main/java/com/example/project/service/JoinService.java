@@ -16,7 +16,7 @@ public class JoinService {
 
     public void joinProcess(JoinDTO joinDTO) {
         // 기존 사용자 체크
-        if (userRepository.existsByUsername(joinDTO.getUsername())) {
+        if (userRepository.existsByUserNo(joinDTO.getUsername())) {
             throw new IllegalStateException("이미 존재하는 사용자입니다.");
         }
 
@@ -30,5 +30,7 @@ public class JoinService {
         userEntity.setLastLoginDate(LocalDateTime.now());
 
         userRepository.save(userEntity);
+
     }
+
 }

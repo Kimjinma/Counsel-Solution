@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "EMP_NO")
-public class EmpEntity {
+public class CounselorEntity {
 
     @Id
     @Column(name = "EMP_NO", nullable = false, length = 10)
@@ -14,28 +14,28 @@ public class EmpEntity {
     private String empSe;
 
     @Column(name = "EMP_NM", nullable = false, length = 100)
-    private String empNm;
+    private String empName;
 
     @Column(name = "DEPT_CD", nullable = false, length = 10)
-    private String deptCd;
+    private String deptCode;
 
     @Column(name = "GNDR", nullable = false, length = 10)
-    private String gndr;
+    private String gender;
 
     @Column(name = "EMAIL", nullable = false, length = 320)
     private String email;
 
     @Column(name = "MBL_TELNO", nullable = false, length = 15)
-    private String mblTelNo;
+    private String mobileNumber;
 
     @Column(name = "ZIP", nullable = false, length = 5)
     private String zip;
 
     @Column(name = "ADDR", nullable = false, length = 200)
-    private String addr;
+    private String address;
 
     @Column(name = "DADDR", nullable = false, length = 200)
-    private String daddr;
+    private String detailAddress;
 
     @Column(name = "USER_NO", nullable = false, length = 10)
     private String userNo;
@@ -44,50 +44,19 @@ public class EmpEntity {
     private String userSe;
 
     @Column(name = "LGN_ID", nullable = false, length = 100)
-    private String lgnId;
+    private String loginId;
 
-    // 기본 생성자
-    public EmpEntity() {}
+    @ManyToOne
+    @JoinColumn(name = "USER_NO", referencedColumnName = "USER_NO", insertable = false, updatable = false)
+    private UserEntity user;
 
-    // Getter 및 Setter
+    // Getters & Setters
     public String getEmpNo() {
         return empNo;
     }
 
     public void setEmpNo(String empNo) {
         this.empNo = empNo;
-    }
-
-    public String getEmpSe() {
-        return empSe;
-    }
-
-    public void setEmpSe(String empSe) {
-        this.empSe = empSe;
-    }
-
-    public String getEmpNm() {
-        return empNm;
-    }
-
-    public void setEmpNm(String empNm) {
-        this.empNm = empNm;
-    }
-
-    public String getDeptCd() {
-        return deptCd;
-    }
-
-    public void setDeptCd(String deptCd) {
-        this.deptCd = deptCd;
-    }
-
-    public String getGndr() {
-        return gndr;
-    }
-
-    public void setGndr(String gndr) {
-        this.gndr = gndr;
     }
 
     public String getEmail() {
@@ -98,44 +67,27 @@ public class EmpEntity {
         this.email = email;
     }
 
-    public String getMblTelNo() {
-        return mblTelNo;
+    public String getAddress() {
+        return address;
     }
 
-    public void setMblTelNo(String mblTelNo) {
-        this.mblTelNo = mblTelNo;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getZip() {
-        return zip;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public String getAddr() {
-        return addr;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
-
-    public String getDaddr() {
-        return daddr;
-    }
-
-    public void setDaddr(String daddr) {
-        this.daddr = daddr;
-    }
-
-    public String getUserNo() {
-        return userNo;
-    }
-
-    public void setUserNo(String userNo) {
-        this.userNo = userNo;
-    }
-
-    public String getUse
+}

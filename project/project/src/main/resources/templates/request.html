@@ -1,10 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request List</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
 </head>
 <body>
-$END$
+<h1>학생 상담 신청 현황</h1>
+
+<!-- 상담 신청 현황 테이블 -->
+<table>
+  <thead>
+  <tr>
+    <th>신청 번호</th>
+    <th>일정 번호</th>
+    <th>상담 진행 상태</th>
+    <th>상담 통합 번호</th>
+    <th>상담 내용</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- 상담 신청 리스트를 반복 출력 -->
+  <tr th:each="request : ${requests}">
+    <td th:text="${request.requestNumber}"></td>
+    <td th:text="${request.scheduleNumber}"></td>
+    <td th:text="${request.counselingProgress}"></td>
+    <td th:text="${request.counselingNumber}"></td>
+    <td th:text="${request.scheduleContents}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- 데이터가 없을 경우 메시지 출력 -->
+<div th:if="${#lists.isEmpty(requests)}">
+  <p>현재 등록된 상담 신청 내역이 없습니다.</p>
+</div>
 </body>
 </html>

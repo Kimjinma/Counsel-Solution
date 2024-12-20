@@ -1,3 +1,4 @@
+/*
 package com.example.project.controller;
 
 import com.example.project.entity.RequestEntity;
@@ -19,20 +20,17 @@ public class RequestController {
 
     @Autowired
     private RequestService requestService;
-
-    // 학생의 상담 신청 현황 출력
     @GetMapping
     public String getStudentRequests(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
-        // 로그인한 사용자의 studentNo 가져오기
-        String studentNo = userDetails.getStudentNo(); // CustomUserDetails에서 studentNo 가져오기
-
-        // `studentNo`를 기준으로 데이터 조회
-        List<RequestEntity> requests = requestService.getRequsetBySTDNNTNO(studentNo);
-
-        // 모델에 데이터 추가
-        model.addAttribute("requests", requests);
-
-        // 요청 리스트 뷰로 이동
-        return "requests/list";
+        if (userDetails == null) {
+            throw new RuntimeException("UserDetails is null. Authentication failed.");
+        }
+        String studentNo = userDetails.getStudentNo(); // 로그인한 사용자의 studentNo 가져오기
+        List<RequestEntity> requests = requestService.getRequestByStudentNo(studentNo); // 서비스 호출
+        model.addAttribute("requests", requests); // 모델에 데이터 추가
+        return "requests/list"; // 뷰 반환
     }
+
+
 }
+*/

@@ -1,4 +1,9 @@
 package com.example.project.repository;
 
-public interface CounselorRepository {
+import com.example.project.entity.CounselorEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CounselorRepository extends JpaRepository<CounselorEntity, String> {
+    CounselorEntity findByLoginId(String loginId);
+
 }

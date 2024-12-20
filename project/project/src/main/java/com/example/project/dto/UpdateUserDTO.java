@@ -1,11 +1,12 @@
 package com.example.project.dto;
 
-
 public class UpdateUserDTO {
+
     private String password;
     private String email;
     private String address;
     private String phoneNumber;
+    private String empNo; // EMP_NO 추가 필드
 
     // Getters and Setters
     public String getPassword() {
@@ -39,4 +40,12 @@ public class UpdateUserDTO {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    public String getEmpNo() {
+        return empNo;
+    }
+
+    public void setEmpNo(String empNo) {
+        this.empNo = empNo;
+    }
+
 }

@@ -8,37 +8,40 @@ import java.time.LocalDateTime;
 public class UserEntity {
 
     @Id
-    @Column(name = "USER_NO")
+    @Column(name = "USER_NO", nullable = false, length = 10)
     private String userNo;
 
-    @Column(name = "USER_SE")
+    @Column(name = "USER_SE", nullable = false, length = 10)
     private String userSe;
 
-    @Column(name = "LGN_ID")
-    private String username; // 매핑: LGN_ID
+    @Column(name = "LGN_ID", nullable = false, unique = true, length = 100)
+    private String username;
 
-    @Column(name = "PSWD")
-    private String password; // 매핑: PSWD
+    @Column(name = "PSWD", nullable = false, length = 255)
+    private String password;
 
     @Column(name = "PSWD_CHG_DT")
     private LocalDateTime passwordChangeDate;
 
-    @Column(name = "PSWD_ERR_NMTN")
-    private int passwordErrorCount;
+    @Column(name = "PSWD_ERR_NMTN", nullable = false)
+    private int passwordErrorCount = 0;
 
     @Column(name = "LAST_LGN_DT")
     private LocalDateTime lastLoginDate;
 
-    @Column(name = "SOCIAL_ID")
+    @Column(name = "SOCIAL_ID", length = 50)
     private String socialId;
 
-    @Column(name = "ACCESS_TOKEN")
+    @Column(name = "ACCESS_TOKEN", length = 500)
     private String accessToken;
 
-    @Column(name = "REFRESH_TOKEN")
+    @Column(name = "REFRESH_TOKEN", length = 500)
     private String refreshToken;
 
-    // Getters and Setters
+    // 기본 생성자
+    public UserEntity() {}
+
+    // Getters 및 Setters
     public String getUserNo() {
         return userNo;
     }
