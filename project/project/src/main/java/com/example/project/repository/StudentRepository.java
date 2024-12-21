@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
     public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
         StudentEntity findByUser_UserNo(String userNo);
-
+    StudentEntity findByStudentNo(String studentNo); // 대소문자 수정
 }
 

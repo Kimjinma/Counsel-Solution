@@ -31,6 +31,8 @@ public class StudentEntity {
     @Column(name = "STDNT_NM", nullable = false, length = 100)
     private String name;
 
+    public StudentEntity() {}
+
     // Getters and Setters
     public String getStudentNo() {
         return studentNo;
@@ -73,4 +75,13 @@ public class StudentEntity {
     }
 
 
+    // Getter
+    public String getName() {
+        return name;
+    }
+
+    // Setter
+    public void setName(String name) {
+        this.name = name;
+    }
     }

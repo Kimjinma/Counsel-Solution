@@ -12,11 +12,11 @@ import java.util.List;
 
 @Service
 public class RequestService {
+
     @Autowired
-    private RequestRepository RequestRepository;
+    private RequestRepository requestRepository;
 
-    public List<RequestEntity> getCounselRequestsByStudentNo(String studentNo) {
-        return RequestRepository.findBystudentNo_studentNo(studentNo);
+    public List<RequestEntity> getRequestsByStudentNo(String studentNo) {
+        return requestRepository.findByStudent_StudentNo(studentNo);
     }
-
 }

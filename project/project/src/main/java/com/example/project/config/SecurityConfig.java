@@ -4,15 +4,13 @@ import com.example.project.service.LoginService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     private final LoginService customUserDetailsService;
@@ -25,35 +23,37 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll()
-                        .requestMatchers("/admin").hasRole("ADMIN")
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER","STUDENT","TEACHER")
-                        .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER","STUDENT") // 마이페이지 접근 허용
-                        .anyRequest().authenticated()
+                        .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll() // 누구나 접근 가능
+                        .requestMatchers("/admin").hasRole("ADMIN") // ADMIN 권한만 접근 가능
+                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER", "STUDENT", "TEACHER") // 여러 권한 허용
+                        .requestMatchers("/mypage").hasAnyRole("ADMIN", "USER", "STUDENT") // 마이페이지 메인
+                        .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 상담 신청 정보 접근 허용
+                        .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
                 .formLogin(auth -> auth
-                        .loginPage("/login")
-                        .loginProcessingUrl("/loginProc")
-                        .defaultSuccessUrl("/main", true) // 로그인 성공 시 main 페이지로 이동
-                        .failureUrl("/login?error=true")
+                        .loginPage("/login") // 로그인 페이지 URL
+                        .loginProcessingUrl("/loginProc") // 로그인 처리 URL
+                        .defaultSuccessUrl("/main", true) // 로그인 성공 후 이동할 기본 URL
+                        .failureUrl("/login?error=true") // 로그인 실패 시 이동할 URL
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.disable());
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // 로그아웃 URL
+                        .logoutSuccessUrl("/login") // 로그아웃 성공 시 이동할 URL
+                        .invalidateHttpSession(true) // 세션 무효화
+                        .deleteCookies("JSESSIONID") // JSESSIONID 쿠키 삭제
+                        .permitAll()
+                )
+                .csrf(csrf -> csrf.disable()); // CSRF 비활성화
 
         return http.build();
     }
 
-    @Bean
-    public NoOpPasswordEncoder passwordEncoder() {
-        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(customUserDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
-        return provider;
+    public PasswordEncoder passwordEncoder() {
+        // 평문 비밀번호 사용 (테스트용, 보안 취약)
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
