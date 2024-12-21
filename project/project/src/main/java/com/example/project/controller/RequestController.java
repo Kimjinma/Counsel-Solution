@@ -15,17 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/requests")
 public class RequestController {
 
     @Autowired
     private RequestService requestService;
 
 
-    @GetMapping("/student")
-    public String getStudentRequset(@RequestParam("studentno") String studentno, Model model) {
+    @GetMapping("/requests/student")
+    public String getStudentRequset(@RequestParam("studentNo") String studentNo, Model model) {
 
-        List<RequestEntity> Request = requestService.getCounselRequestsByStudentNo(studentno);
+        List<RequestEntity> Request = requestService.getCounselRequestsByStudentNo(studentNo);
 
         model.addAttribute("counselRequests", Request);
 
