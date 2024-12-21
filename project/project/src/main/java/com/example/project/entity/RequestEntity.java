@@ -8,7 +8,7 @@ public class RequestEntity {
 
     @Id
     @Column(name = "CNS_NO") // 상담 번호
-    private Integer cnsNo;
+    private String cnsNo;
 
     @ManyToOne
     @JoinColumn(name = "STDNT_NO", referencedColumnName = "STDNT_NO", insertable = false, updatable = false)
@@ -49,11 +49,11 @@ public class RequestEntity {
     private Integer applyCount;
 
     // Getters and Setters
-    public Integer getCnsNo() {
+    public String getCnsNo() {
         return cnsNo;
     }
 
-    public void setCnsNo(Integer cnsNo) {
+    public void setCnsNo(String cnsNo) {
         this.cnsNo = cnsNo;
     }
 

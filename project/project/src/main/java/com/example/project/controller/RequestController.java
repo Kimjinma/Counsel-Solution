@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 @Controller
-@RequestMapping("/mypage/counselRequests")
+
 public class RequestController {
 
     @Autowired
@@ -25,20 +25,29 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
-    @GetMapping
-    public String counselRequestsView(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+    @GetMapping("/mypage/counselRequests")
+    public String getCounselRequests(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String username = userDetails.getUsername();
+        System.out.println("Logged-in username: " + username);
+        System.out.println("Logged-in Username: " + userDetails.getUsername());
 
         // 학번 조회
         String studentNo = testService.getStudentNoByLoginId(username);
+        if (studentNo == null) {
+            model.addAttribute("error", "학번 정보를 찾을 수 없습니다.");
+            System.out.println("Student No: " + studentNo);
+
+            return "mypage";
+
+        }
 
         // 상담 신청 정보 조회
         List<RequestEntity> counselRequests = requestService.getRequestsByStudentNo(studentNo);
+        model.addAttribute("counselRequests", counselRequests); // 데이터 추가
+        System.out.println("Counsel Requests: " + counselRequests);
 
-        // 모델에 데이터 추가
-        model.addAttribute("username", username);
-        model.addAttribute("counselRequests", counselRequests);
+        return "mypage"; // HTML 파일 이름
 
-        return "mypage"; // mypage.html 반환
     }
-}
+
+    }
