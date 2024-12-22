@@ -25,15 +25,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll() // 누구나 접근 가능
                         .requestMatchers("/admin").hasRole("ADMIN") // ADMIN 권한만 접근 가능
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER", "STUDENT", "TEACHER") // 여러 권한 허용
-                        .requestMatchers("/mypage").hasAnyRole("ADMIN", "USER", "STUDENT") // 마이페이지 메인
-                        .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 상담 신청 정보 접근 허용
+                        .requestMatchers("/mypage/profile").hasAnyRole("ADMIN", "USER", "STUDENT") // 마이페이지 프로필 접근 권한
+                        .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 상담 신청 정보 접근 권한
                         .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
                 .formLogin(auth -> auth
                         .loginPage("/login") // 로그인 페이지 URL
                         .loginProcessingUrl("/loginProc") // 로그인 처리 URL
-                        .defaultSuccessUrl("/main", true) // 로그인 성공 후 이동할 기본 URL
+                        .defaultSuccessUrl("/mypage/profile", true) // 로그인 성공 후 이동할 기본 URL
                         .failureUrl("/login?error=true") // 로그인 실패 시 이동할 URL
                         .permitAll()
                 )
@@ -48,7 +47,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {

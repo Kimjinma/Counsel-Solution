@@ -22,7 +22,7 @@ public class CounselorMyPageController {
         return "counselormypage"; // counselormypage.html 반환
     }
 
-    @PostMapping("/coupdate")
+    @PostMapping("/update-info")
     public String updateCounselorInfo(@AuthenticationPrincipal UserDetails userDetails,
                                       UpdateUserDTO updateUserDTO, Model model) {
         System.out.println("Request to update counselor info: " + updateUserDTO);
@@ -32,6 +32,6 @@ public class CounselorMyPageController {
         } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
         }
-        return "counselormypage";
+        return "mypage";
     }
 }

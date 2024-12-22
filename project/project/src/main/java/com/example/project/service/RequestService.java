@@ -17,6 +17,6 @@ public class RequestService {
     private RequestRepository requestRepository;
 
     public List<RequestEntity> getRequestsByStudentNo(String studentNo) {
-        return requestRepository.findByStudent_StudentNo(studentNo);
+        return requestRepository.findByStudentNo_StudentNo(studentNo);
     }
 }

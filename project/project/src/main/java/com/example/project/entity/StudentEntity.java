@@ -20,6 +20,9 @@ public class StudentEntity {
     private String email;
 
 
+    @Column(name = "LGN_ID", nullable = false, length = 15)
+    private String lgn;
+
 
 
     @Column(name = "MBL_TELNO", nullable = false, length = 15)

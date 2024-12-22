@@ -1,3 +1,4 @@
+/*
 package com.example.project.controller;
 
 import com.example.project.dto.UpdateUserDTO;
@@ -18,11 +19,12 @@ public class MYPAGE {
     private UserService userService;
 
     // 마이페이지 조회 화면
-    @GetMapping
+    @GetMapping("/mypage/profile")
     public String myPageView(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         model.addAttribute("username", userDetails.getUsername());
         return "mypage"; // mypage.html 반환
     }
+
 
     @PostMapping("/update")
     public String updateUserInfo(@AuthenticationPrincipal UserDetails userDetails,
@@ -32,4 +34,4 @@ public class MYPAGE {
         model.addAttribute("message", "User information updated successfully.");
         return "redirect:/mypage"; // 업데이트 후 리다이렉트
     }
-}
+}*/

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends JpaRepository<RequestEntity, Integer> {
-     List<RequestEntity> findByStudent_StudentNo(String studentNo);
+     List<RequestEntity> findByStudentNo_StudentNo(String studentNo); // 수정
 
 }

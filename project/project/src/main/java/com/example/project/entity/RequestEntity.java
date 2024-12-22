@@ -1,4 +1,5 @@
 package com.example.project.entity;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -7,16 +8,16 @@ import java.time.LocalDate;
 public class RequestEntity {
 
     @Id
-    @Column(name = "CNS_NO") // 상담 번호
-    private String cnsNo;
+    @Column(name = "CNS_NO")
+    private Integer cnsNo;
 
     @ManyToOne
     @JoinColumn(name = "STDNT_NO", referencedColumnName = "STDNT_NO", insertable = false, updatable = false)
-    private StudentEntity student;
+    private StudentEntity studentNo;
 
-    // 추가 컬럼 매핑 확인
     @Column(name = "CNS_TYPE")
     private String counselingType;
+
     @Column(name = "EMP_NO", nullable = false) // 직원 번호
     private String empNo;
 
@@ -35,7 +36,6 @@ public class RequestEntity {
     @Column(name = "SCHD_YN") // 일정 여부
     private String scheduleYn;
 
-
     @Column(name = "CNS_REASON") // 상담 사유
     private String counselingReason;
 
@@ -48,15 +48,34 @@ public class RequestEntity {
     @Column(name = "APPLY_NMTR") // 신청 횟수
     private Integer applyCount;
 
-    // Getters and Setters
-    public String getCnsNo() {
+    // 기본 생성자 추가
+    public RequestEntity() {
+    }
+
+    // Getter 및 Setter
+    public Integer getCnsNo() {
         return cnsNo;
     }
 
-    public void setCnsNo(String cnsNo) {
+    public void setCnsNo(Integer cnsNo) {
         this.cnsNo = cnsNo;
     }
 
+    public StudentEntity getStudentNo() {
+        return studentNo;
+    }
+
+    public void setStudentNo(StudentEntity studentNo) {
+        this.studentNo = studentNo;
+    }
+
+    public String getCounselingType() {
+        return counselingType;
+    }
+
+    public void setCounselingType(String counselingType) {
+        this.counselingType = counselingType;
+    }
 
     public String getEmpNo() {
         return empNo;
@@ -104,14 +123,6 @@ public class RequestEntity {
 
     public void setScheduleYn(String scheduleYn) {
         this.scheduleYn = scheduleYn;
-    }
-
-    public String getCounselingType() {
-        return counselingType;
-    }
-
-    public void setCounselingType(String counselingType) {
-        this.counselingType = counselingType;
     }
 
     public String getCounselingReason() {
