@@ -1,10 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My Page</title>
-</head>
+    <title>마이페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            background-color: #f9f9f9;
+        }
+
+        .tab.active {
+            background-color: white;
+            font-weight: bold;
+            border-top: 2px solid #007bff;
+            border-left: 2px solid #007bff;
+            border-right: 2px solid #007bff;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        function showTab(tabId) {
+            // 모든 탭의 active 클래스 제거
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+
+            // 선택된 탭과 내용 활성화
+            document.getElementById(tabId + '-tab').classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            // URL 업데이트 (탭에 따라 변경)
+            const newUrl = tabId === 'profile' ? '/counselormypage/profile' : '/counselormypage/testcounselRequests';
+            history.pushState(null, '', newUrl);
+        }
+    </script>
+
 <body>
+<h1>마이페이지</h1>
+<div class="tabs">
+    <div id="profile-tab" class="tab active" onclick="showTab('profile')">개인정보 수정</div>
+    <div id="requests-tab" class="tab" onclick="showTab('requests')">상담 신청 정보</div>
+</div>
+
+<!-- 개인정보 수정 -->
+<div id="profile" class="content active">
+    <h2>개인정보 수정</h2>
 <h2>Update User Information</h2>
 <form action="/mypage/update-info" method="post">
     <label for="password">Password:</label>
@@ -21,6 +99,47 @@
 
     <button type="submit">Update</button>
 </form>
+</div>
 
+<!-- 상담 신청 정보 -->
+<div id="requests" class="content">
+    <h2>상담 신청 정보</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>상담 번호</th>
+            <th>학생 번호</th>
+            <th>직원 번호</th>
+            <th>일정 번호</th>
+            <th>진행 상태</th>
+            <th>일정 시작일</th>
+            <th>일정 종료일</th>
+            <th>일정 여부</th>
+            <th>상담 유형</th>
+            <th>상담 사유</th>
+            <th>상담 내용</th>
+            <th>신청 여부</th>
+            <th>신청 횟수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${counselRequests}">
+            <td th:text="${request.cnsNo}"></td>
+            <td th:text="${request.studentNo.studentNo}"></td>
+            <td th:text="${request.empNo}"></td>
+            <td th:text="${request.schedNo}"></td>
+            <td th:text="${request.counselingProgress}"></td>
+            <td th:text="${request.scheduleStartDate}"></td>
+            <td th:text="${request.scheduleEndDate}"></td>
+            <td th:text="${request.scheduleYn}"></td>
+            <td th:text="${request.counselingType}"></td>
+            <td th:text="${request.counselingReason}"></td>
+            <td th:text="${request.counselingContent}"></td>
+            <td th:text="${request.applyYn}"></td>
+            <td th:text="${request.applyCount}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

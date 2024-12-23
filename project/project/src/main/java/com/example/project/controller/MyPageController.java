@@ -2,9 +2,9 @@ package com.example.project.controller;
 
 import com.example.project.dto.UpdateUserDTO;
 import com.example.project.entity.RequestEntity;
-import com.example.project.service.RequestService;
+import com.example.project.service.StudentRequestService;
 import com.example.project.service.UserService;
-import com.example.project.service.testService;
+import com.example.project.service.StudentManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,10 +24,10 @@ public class MyPageController {
     private UserService userService;
 
     @Autowired
-    private testService testService;
+    private StudentManagementService testService;
 
     @Autowired
-    private RequestService requestService;
+    private StudentRequestService requestService;
 
     // 마이페이지 조회 화면
     @GetMapping("/profile")

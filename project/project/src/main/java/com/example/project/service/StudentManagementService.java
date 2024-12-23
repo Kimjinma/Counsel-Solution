@@ -7,7 +7,7 @@ import com.example.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
-public class testService {
+public class StudentManagementService {
 
 
         @Autowired
@@ -27,7 +27,7 @@ public class testService {
             }
 
             // 2. 사용자 번호로 학생 정보 조회
-            StudentEntity student = studentRepository.findByStudentNo(user.getUserNo());
+            StudentEntity student = studentRepository.findByUser_UserNo(user.getUserNo());
             if (student == null) {
                 throw new IllegalArgumentException("해당 사용자 번호를 가진 학생이 없습니다: " + user.getUserNo());
             }
