@@ -12,7 +12,7 @@ import java.util.Collection;
 @Controller
 public class MainController {
 
-    @GetMapping("/main")
+    @GetMapping("/")
     public String mainP(Model model) {
         // 현재 인증된 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -23,7 +23,7 @@ public class JoinService {
         user.setEmail(joinDTO.getEmail());
         user.setName(joinDTO.getName());
         user.setPhone(joinDTO.getPhone());
-        user.setRole("ROLE_ADMIN");
+        user.setRole("ROLE_USER");
         userRepository.save(user);
     }
 }

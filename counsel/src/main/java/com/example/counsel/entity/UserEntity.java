@@ -26,6 +26,4 @@ public class UserEntity {
     private String phone;
 
     private String role;
-
-
 }
