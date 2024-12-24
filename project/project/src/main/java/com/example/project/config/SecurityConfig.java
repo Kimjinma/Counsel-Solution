@@ -25,10 +25,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/loginProc", "/join", "/joinProc").permitAll() // 누구나 접근 가능
                         .requestMatchers("/admin").hasRole("ADMIN") // ADMIN 권한만 접근 가능
-                        .requestMatchers("/mypage/profile").hasAnyRole("ADMIN", "USER", "STUDENT") // 마이페이지 프로필 접근 권한
-                        .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 상담 신청 정보 접근 권한
-                        .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
+
+                        // 학생 마이페이지 접근 권한 설정
+                        .requestMatchers("/mypage/profile").hasAnyRole("ADMIN", "USER", "STUDENT") // 학생 개인정보 수정 접근 권한
+                        .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 학생 상담 신청 정보 접근 권한
+
+                        // 상담사 마이페이지 접근 권한 설정
+                        .requestMatchers("/counselor/mypage/profile").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 개인정보 수정 접근 권한
+                        .requestMatchers("/counselor/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 상담 신청 정보 접근 권한
                 )
+
                 .formLogin(auth -> auth
                         .loginPage("/login") // 로그인 페이지 URL
                         .loginProcessingUrl("/loginProc") // 로그인 처리 URL

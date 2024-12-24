@@ -20,7 +20,7 @@ public class RequestEntity {
 
     @ManyToOne
     @JoinColumn(name = "EMP_NO", referencedColumnName = "EMP_NO", insertable = false, updatable = false)
-    private CounselorEntity Emp;
+    private CounselorEntity emp;
 
     @Column(name = "SCHED_NO") // 일정 번호
     private String schedNo;
@@ -77,14 +77,14 @@ public class RequestEntity {
     public void setCounselingType(String counselingType) {
         this.counselingType = counselingType;
     }
-
-    public CounselorEntity getEmpNo() {
-        return Emp;
+    public CounselorEntity getEmp() {
+        return emp;
     }
 
-    public void setEmpNo(CounselorEntity Emp) {
-        this.Emp = Emp;
+    public void setEmp(CounselorEntity emp) {
+        this.emp = emp;
     }
+
 
     public String getSchedNo() {
         return schedNo;

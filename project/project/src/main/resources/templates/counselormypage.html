@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>마이페이지</title>
+    <title>상담사 마이페이지</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,13 +68,14 @@
             document.getElementById(tabId).classList.add('active');
 
             // URL 업데이트 (탭에 따라 변경)
-            const newUrl = tabId === 'profile' ? '/counselormypage/profile' : '/counselormypage/testcounselRequests';
+            const newUrl = tabId === 'profile' ? '/counselor/mypage/profile' : '/counselor/mypage/counselRequests';
             history.pushState(null, '', newUrl);
+
         }
     </script>
-
+</head>
 <body>
-<h1>마이페이지</h1>
+<h1>상담사 마이페이지</h1>
 <div class="tabs">
     <div id="profile-tab" class="tab active" onclick="showTab('profile')">개인정보 수정</div>
     <div id="requests-tab" class="tab" onclick="showTab('requests')">상담 신청 정보</div>
@@ -83,22 +84,21 @@
 <!-- 개인정보 수정 -->
 <div id="profile" class="content active">
     <h2>개인정보 수정</h2>
-<h2>Update User Information</h2>
-<form action="/mypage/update-info" method="post">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" value="testpassword" placeholder="Enter new password"><br><br>
+    <form action="/counselor/mypage/update" method="POST">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter new password"><br><br>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="test@example.com" placeholder="Enter email"><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter email"><br><br>
 
-    <label for="address">Address:</label>
-    <input type="text" id="address" name="address" value="Test Address" placeholder="Enter address"><br><br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter address"><br><br>
 
-    <label for="phoneNumber">Phone Number:</label>
-    <input type="text" id="phoneNumber" name="phoneNumber" value="01012345678" placeholder="Enter phone number"><br><br>
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number"><br><br>
 
-    <button type="submit">Update</button>
-</form>
+        <button type="submit">Update</button>
+    </form>
 </div>
 
 <!-- 상담 신청 정보 -->
@@ -119,13 +119,13 @@
             <th>상담 사유</th>
             <th>상담 내용</th>
             <th>신청 여부</th>
-            <th>신청 횟수</th>
+            <th>신청 횟수</th>e
         </tr>
         </thead>
         <tbody>
         <tr th:each="request : ${counselRequests}">
             <td th:text="${request.cnsNo}"></td>
-            <td th:text="${request.studentNo.studentNo}"></td>
+            <td th:text="${request.studentNo}"></td>
             <td th:text="${request.empNo}"></td>
             <td th:text="${request.schedNo}"></td>
             <td th:text="${request.counselingProgress}"></td>

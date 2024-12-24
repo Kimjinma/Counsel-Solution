@@ -87,4 +87,11 @@ public class StudentEntity {
     public void setName(String name) {
         this.name = name;
     }
+    public String getLgn() { // 추가된 Getter
+        return lgn;
+    }
+
+    public void setLgn(String lgn) {
+        this.lgn = lgn;
+    }
     }
