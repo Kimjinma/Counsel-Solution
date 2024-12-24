@@ -1,0 +1,421 @@
+/* 기본 스타일 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+}
+
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨테이너 최대 너비 */
+.container {
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    width: 100%;
+    display: flex;
+    padding-bottom: 100px;
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+}
+
+header div {
+    margin-left: 14%;
+}
+
+header a {
+    color: #333; /* 가독성을 위한 색상 */
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+header i {
+    font-size: 14px;
+}
+
+/* 네비게이션 */
+nav {
+    background: white;
+    border: 1px solid #eee;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav h1 {
+    display: inline-block;
+    margin-right: 15%;
+}
+
+nav a {
+    margin: 0 70px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* 제목 스타일 */
+h2 {
+    font-size: 28px; /* 폰트 크기 */
+    color: white;
+    background-color: #0078d7;
+    padding: 30px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin: 0; /* 기본 여백 제거 */
+    width: 180px; /* 박스 너비를 200px로 설정 */
+    position: relative; /* 상대 위치 */
+    left: 50%; /* 수평 중앙 */
+    transform: translateX(-245%); /* 중앙 정렬을 위한 이동 */
+}
+
+
+.container-banner {
+    margin: 0; /* 기본 여백 제거 */
+    width: fit-content; /* 내용에 맞게 너비 조정 */
+    position: relative; /* 상대 위치로 변경 */
+    left: 50%; /* 수평 중앙 */
+    transform: translateX(-50%); /* 중앙 정렬을 위한 이동 */
+}
+
+.container .home {
+    margin-left: 50px;
+    font-size: 13px;
+    text-align: right;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    padding: 20px;
+    background-color: white;
+}
+
+.sidebar-button {
+    width: 230px;
+    padding: 20px;
+    margin: 3px 0;
+    background-color: #eee;
+    text-align: left;
+    color: #222;
+    font-size: 15px;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-button:nth-child(1){
+    border: 1px solid #0078d7;
+    color : #0078d7;
+    background-color: white;
+}
+
+.sidebar-button:hover {
+    color : #0078d7;
+}
+
+/* 메인 콘텐츠 */
+.container h1 {
+    margin-left: 60px;
+    width: 860px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.main-content {
+    margin-left: 60px;
+}
+
+.intro{
+    margin-top: 40px;
+    width: 900px;
+    flex: 1;
+    padding: 15px 50px;
+    box-sizing: border-box; /* 박스 크기를 고정 */
+    background-color: #f9f9f9;
+}
+
+.vision{
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.mini-title{
+    display: flex; /* 플렉스 컨테이너 활성화 */
+    flex-direction: column; /* 세로 방향 정렬 */
+    align-items: center; /* 가로 방향 가운데 정렬 */
+    background-color: rgb(240, 249, 250);
+    padding: 10px;
+    text-align: center;
+
+
+}
+
+.mini-title .a{
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 8px;
+    width: 90px;
+    background-color: rgba(27, 209, 179, 0.87);
+    border-radius: 30px;
+}
+
+.mini-title .b{
+    width: 95%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+
+}
+
+
+
+.services ul{
+    display: flex;
+    gap: 20px;
+}
+.services .icon-order{
+    margin-top: 20px;
+    padding: 30px 35px;
+    border: 1.5px solid rgb(163, 213, 255);
+    border-radius: 10px;
+}
+
+.services .steps{
+    color: white;
+    font-size: 13px;
+    background-color: rgba(7, 114, 255, 0.87);
+    border-radius: 30px;
+    padding: 5px 25px; /* 내부 여백 추가 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin-top: 20px;
+    margin-bottom: 20px; /* 아래 텍스트와 간격 */
+}
+
+.text-order {
+    font-size: 14px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.arrow-icon {
+    font-size: 7px;
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    align-items: center; /* 세로 가운데 정렬 */
+    justify-content: center; /* 가로 가운데 정렬 */
+    font-size: 20px; /* 화살표 크기 */
+    color: #ccc; /* 화살표 색상 */
+}
+
+.services .c{
+    margin-top: 80px;
+    padding: 15px 35px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.services .talk {
+    display: flex;
+    padding: 10px;
+}
+
+.services .category{
+    font-weight: bold;
+    color: rgba(7, 114, 255, 0.87);
+}
+
+.services .details{
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+.values{
+    align-items: center;
+    padding: 15px 35px;
+    border : 1px solid rgb(163, 213, 255);
+    border-radius: 5px;
+    display: flex;
+    margin-top: 40px;
+}
+
+.values .numbertitle i {
+    font-size: 25px;
+    color: rgba(7, 114, 255, 0.87);
+    margin-right: 10px ;
+}
+
+.values .number {
+    margin-left: 50px;
+    font-size: 15px;
+}
+
+.values .numbertitle{
+    display: flex;
+    font-weight: bold;
+}
+
+/*신청버튼*/
+.apply{
+    font-weight: bold;
+    display: block; /* 또는 inline-block */
+    margin-left: auto; /* 왼쪽 여백 자동으로 설정 */
+    padding: 10px;
+    border: none;
+    background-color: rgba(7, 114, 255, 0.87);
+    color: white;
+    margin-top: 40px;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none; /* 기본적으로 모달은 숨김 */
+    position: fixed; /* 화면에 고정 */
+    z-index: 1; /* 다른 요소 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 화면 너비 */
+    height: 100%; /* 전체 화면 높이 */
+    overflow: auto; /* 스크롤 가능 */
+    background-color: rgb(0,0,0); /* 배경색 */
+    background-color: rgba(0,0,0,0.4); /* 투명도 */
+}
+
+/* 모달 콘텐츠 스타일 */
+.modal-content {
+    display: flex;
+    flex-direction: column; /* 세로 방향 정�� */
+    background-color: #fefefe; /* 모달 배경색 */
+    margin: 15% auto; /* 중앙 정렬 */
+    padding: 40px; /* 안쪽 여백 */
+    border: 1px solid #888; /* 테두리 */
+    width: 80%; /* 모달 너비 */
+    max-width: 700px; /* 최대 너비 */
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.modal h4 {
+    font-size: 20px;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.modal button{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.modal .modal-agree{
+    margin: 40px;
+    text-align: center;
+}
+
+.modal .modal-button{
+    width: 100%;
+    gap: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.modal .modal-button button {
+    border: none;
+}
+
+.modal .modal-button button:first-child{
+    background-color: rgba(7, 114, 255, 0.87);
+    color: white;
+}
+
+
+
+/* 닫기 버튼 스타일 */
+.close {
+    color: #aaa; /* 닫기 버튼 색상 */
+    float: right; /* 오른쪽 정렬 */
+    font-size: 28px; /* 글씨 크기 */
+    font-weight: bold; /* 글씨 두께 */
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* 호버 시 색상 변경 */
+    text-decoration: none; /* 밑줄 제거 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
+
+
+/* 섹션 스타일 */
+section {
+    margin-bottom: 40px;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+ul li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+/* 푸터 */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+footer a {
+    color: #0078d7;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* 세로 방향으로 쌓이도록 변경 */
+    }
+
+    .sidebar {
+        width: 100%; /* 사이드바 너비를 100%로 설정 */
+    }
+
+    .main-content {
+        margin-left: 0; /* 메인 콘텐츠의 왼쪽 여백 제거 */
+        width: 100%; /* 메인 콘텐츠 너비를 100%로 설정 */
+    }
+
+    h2 {
+        margin-left: 0; /* 제목의 왼쪽 여백 제거 */
+        /* 폰트 크기를 조정하지 않음 */
+    }
+}

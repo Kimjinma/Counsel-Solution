@@ -1,0 +1,294 @@
+/* 기본 스타일 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff; /* 배경색을 흰색으로 설정 */
+}
+
+.wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 컨테이너 최대 너비 */
+.container {
+    max-width: 1200px; /* 최대 너비 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+    width: 100%;
+    display: flex;
+    padding-bottom: 100px;
+}
+
+/* 헤더 스타일 */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+}
+
+header div {
+    margin-left: 14%;
+}
+
+header a {
+    color: #333; /* 가독성을 위한 색상 */
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+header i {
+    font-size: 14px;
+}
+
+/* 네비게이션 */
+nav {
+    background: white;
+    border: 1px solid #eee;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+nav h1 {
+    display: inline-block;
+    margin-right: 15%;
+}
+
+nav a {
+    margin: 0 70px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+
+/* 제목 스타일 */
+h2 {
+    font-size: 28px; /* 폰트 크기 */
+    color: white;
+    background-color: #0078d7;
+    padding: 30px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin: 0; /* 기본 여백 제거 */
+    width: 180px; /* 박스 너비를 200px로 설정 */
+    position: relative; /* 상대 위치 */
+    left: 50%; /* 수평 중앙 */
+    transform: translateX(-245%); /* 중앙 정렬을 위한 이동 */
+}
+
+
+.container-banner {
+    margin: 0; /* 기본 여백 제거 */
+    width: fit-content; /* 내용에 맞게 너비 조정 */
+    position: relative; /* 상대 위치로 변경 */
+    left: 50%; /* 수평 중앙 */
+    transform: translateX(-50%); /* 중앙 정렬을 위한 이동 */
+}
+
+.container .home {
+    margin-left: 50px;
+    font-size: 13px;
+    text-align: right;
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    padding: 20px;
+    background-color: white;
+}
+
+.sidebar-button {
+    width: 230px;
+    padding: 20px;
+    margin: 3px 0;
+    background-color: #eee;
+    text-align: left;
+    color: #222;
+    font-size: 15px;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-button:nth-child(1){
+    border: 1px solid #0078d7;
+    color : #0078d7;
+    background-color: white;
+}
+
+.sidebar-button:hover {
+    color : #0078d7;
+}
+
+.container h1 {
+    margin-left: 60px;
+    width: 860px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.main-content {
+    margin-left: 60px;
+}
+
+.container .first, .container .sceond , .container .third{
+    margin-left: 60px;
+    border-bottom: solid 1px #ddd;
+}
+.container p{
+    border-top: solid 1px #ddd;
+    padding: 15px;
+    font-weight: bold;
+    background-color: #f7f7f7;
+}
+
+.container span{
+    font-size: 20px;
+    color: rgba(27, 209, 179, 0.87);
+}
+
+.input-form {
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* 전체를 세로 방향으로 정렬 */
+    gap: 15px; /* 각 항목 간의 간격 설정 */
+}
+
+.input-form label {
+    font-size: 14px;
+    display: flex;
+    align-items: center; /* 라디오 버튼과 텍스트를 수직으로 정렬 */
+    width: 100%; /* 라벨 너비를 100%로 설정 */
+}
+
+.input-form .row {
+    display: flex; /* 가로 정렬 */
+    justify-content: space-between; /* 항목 간의 균등 간격 설정 */
+}
+
+.input-form .row label {
+    flex: 1; /* 각 라벨의 너비를 균등하게 설정 */
+    margin-right: 10px; /* 오른쪽 간격 설정 */
+}
+
+.input-form .row label:last-child {
+    margin-right: 0; /* 마지막 항목의 오른쪽 간격 제거 */
+}
+
+.text{
+    border : none;
+    border-bottom : solid 1px #000;
+}
+.text:focus{
+    border : none;
+    outline: none;
+    border-bottom : solid 1px #000;
+}
+
+.container .schedule{
+    margin-left: 60px;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background-color: #f7f7f7;
+}
+
+.apply {
+    font-size: 18px;
+    margin-top: 100px;
+    float: right;
+    border : none;
+    background-color: #0078d7;
+    color: white;
+    padding: 10px;
+}
+
+
+/* 알림 스타일 */
+.alert {
+    width: 20%;
+    padding: 40px;
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 20px; /* 상단에서의 위치 */
+    left: 50%; /* 중앙 정렬 */
+    transform: translateX(-50%); /* 중앙 정렬 조정 */
+    background-color: white; /* 배경색 */
+    color: #000; /* 글자색 */
+    padding: 15px; /* 여백 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    z-index: 1000; /* 가장 위에 표시 */
+    border: solid 1px #ccc;
+}
+
+.alert button {
+    margin: 10px;
+    width: 20%;
+    float : right;
+    padding : 5px;
+    background-color: #0078d7; /* 버튼 배경 투명:transparent */
+    color: white; /* 버튼 글자색 */
+    border: none; /* 테두리 없음 */
+    cursor: pointer; /* 커서 포인터 */
+    margin-left: 10px; /* 버튼과 텍스트 간격 */
+    font-weight: bold; /* 글자 두껍게 */
+}
+
+
+
+/* 푸터 */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-top: auto;
+}
+
+footer a {
+    color: #0078d7;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* 세로 방향으로 쌓이도록 변경 */
+    }
+
+    .sidebar {
+        width: 100%; /* 사이드바 너비를 100%로 설정 */
+    }
+
+    .main-content {
+        margin-left: 0; /* 메인 콘텐츠의 왼쪽 여백 제거 */
+        width: 100%; /* 메인 콘텐츠 너비를 100%로 설정 */
+    }
+
+    h2 {
+        margin-left: 0; /* 제목의 왼쪽 여백 제거 */
+        /* 폰트 크기를 조정하지 않음 */
+    }
+}

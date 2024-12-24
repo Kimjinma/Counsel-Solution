@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 메인 홈페이지</title>
+    <link rel="stylesheet" href="/css/survey.css">
+    <script src="/js/survey.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div>
+            <a href="#" onclick="window.location.href='mypage.mustache'"><i class="fa-solid fa-house"></i> &nbsp;마이페이지</a>
+            <a href="#" onclick="window.location.href='login.mustache'"> <i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
+        </div>
+    </header>
+    <nav>
+        <h1 onclick="window.location.href='main.html'">학생통합상담센터</h1>
+        <a href="#" onclick="window.location.href='center.html'">센터 소개</a>
+        <a href="#" onclick="window.location.href='advice-person.mustache'">개인 상담</a>
+        <a href="#" onclick="window.location.href='program-peer.html'">프로그램</a>
+        <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
+    </nav>
+    <div class=" container-banner">
+        <img src="https://via.placeholder.com/1920x200" alt="1920x200 Placeholder 이미지">
+    </div>
+    <h2>개인 상담</h2>
+    <div class="container">
+        <!-- 사이드바 버튼 -->
+        <div class="sidebar">
+            <button href="#" class="sidebar-button" onclick="window.location.href='advice-person.mustache'">1:1 상담</button>
+            <button href="#" class="sidebar-button"  onclick="window.location.href='adivce-professor.mustache'">교수/학습 상담</button>
+            <button href="#" class="sidebar-button" onclick="window.location.href='adivce-job.mustache'">취업/진로 상담</button>
+        </div>
+        <div class="title-container">
+            <div class="home"> HOME 개인상담 > 1:1 상담</div>
+
+            <h1>상담 신청서</h1>
+            <div class="first">
+                <p><span>01●</span> 상담센터를 알게 된 경위는 무엇입니까?</p>
+                <div class="input-form">
+                    <div class="row">
+                        <label><input type="radio" name="option1" value="1">안내 포스터 및 팜플렛</label>
+                        <label><input type="radio" name="option1" value="2">학교 홈페이지 및 SNS</label>
+                    </div>
+                    <div class="row">
+                        <label><input type="radio" name="option1" value="3">교수님을 통해</label>
+                        <label><input type="radio" name="option1" value="4">선후배 및 동기를 통해</label>
+                    </div>
+                    <div class="row">
+                        <label><input type="radio" name="option1" value="5">교내 행사</label>
+                        <label><input type="radio" name="option1" value="6">기타:<input type="text" class="text"></label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="sceond">
+                <p><span>02● </span>상담센터를 알게 된 경위는 무엇입니까?</p>
+                <div class="input-form">
+                    <div class="row">
+                        <label><input type="radio" name="option2" value="1">자진해서</label>
+                        <label><input type="radio" name="option2" value="2">선배의 권유</label>
+                    </div>
+                    <div class="row">
+                        <label><input type="radio" name="option2" value="3">친구의 권유</label>
+                        <label><input type="radio" name="option2" value="4">가족의 권유</label>
+                    </div>
+                    <div class="row">
+                        <label><input type="radio" name="option2" value="5">교수의 권유</label>
+                        <label><input type="radio" name="option2" value="6">기타:<input type="text" class="text"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="third">
+                <p><span>03●</span> 이전에 상담 및 심리검사 경험이 있습니까?</p>
+                <div class="input-form">
+                    <label><input type="radio" name="option3" value="1">없음</label>
+                    <label><input type="radio" name="option3" value="2">있음 &nbsp;
+                        <div> (무엇을:&nbsp;상담 ● 심리검사/ 언제:<input type="text" class="text"></label>/어디서:&nbsp;<input type="text" class="text"></label> </div>
+                <div>이유:<input type="text" class="text">)</label></div>
+            </div>
+        </div>
+        <div class="schedule">
+
+            <table>
+                <thead>
+                <tr>
+                    <th>시간</th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>10:00</td>
+                    <td><input type="radio" name="time_10" value="월_10"> 선택</td>
+                    <td><input type="radio" name="time_10" value="화_10"> 선택</td>
+                    <td><input type="radio" name="time_10" value="수_10"> 선택</td>
+                    <td><input type="radio" name="time_10" value="목_10"> 선택</td>
+                    <td><input type="radio" name="time_10" value="금_10"> 선택</td>
+                </tr>
+                <tr>
+                    <td>11:00</td>
+                    <td><input type="radio" name="time_11" value="월_11"> 선택</td>
+                    <td><input type="radio" name="time_11" value="화_11"> 선택</td>
+                    <td><input type="radio" name="time_11" value="수_11"> 선택</td>
+                    <td><input type="radio" name="time_11" value="목_11"> 선택</td>
+                    <td><input type="radio" name="time_11" value="금_11"> 선택</td>
+                </tr>
+                <tr>
+                    <td>12:00</td>
+                    <td><input type="radio" name="time_12" value="월_12"> 선택</td>
+                    <td><input type="radio" name="time_12" value="화_12"> 선택</td>
+                    <td><input type="radio" name="time_12" value="수_12"> 선택</td>
+                    <td><input type="radio" name="time_12" value="목_12"> 선택</td>
+                    <td><input type="radio" name="time_12" value="금_12"> 선택</td>
+                </tr>
+                <tr>
+                    <td>13:00</td>
+                    <td><input type="radio" name="time_13" value="월_13"> 선택</td>
+                    <td><input type="radio" name="time_13" value="화_13"> 선택</td>
+                    <td><input type="radio" name="time_13" value="수_13"> 선택</td>
+                    <td><input type="radio" name="time_13" value="목_13"> 선택</td>
+                    <td><input type="radio" name="time_13" value="금_13"> 선택</td>
+                </tr>
+                <tr>
+                    <td>14:00</td>
+                    <td><input type="radio" name="time_14" value="월_14"> 선택</td>
+                    <td><input type="radio" name="time_14" value="화_14"> 선택</td>
+                    <td><input type="radio" name="time_14" value="수_14"> 선택</td>
+                    <td><input type="radio" name="time_14" value="목_14"> 선택</td>
+                    <td><input type="radio" name="time_14" value="금_14"> 선택</td>
+                </tr>
+                <tr>
+                    <td>15:00</td>
+                    <td><input type="radio" name="time_15" value="월_15"> 선택</td>
+                    <td><input type="radio" name="time_15" value="화_15"> 선택</td>
+                    <td><input type="radio" name="time_15" value="수_15"> 선택</td>
+                    <td><input type="radio" name="time_15" value="목_15"> 선택</td>
+                    <td><input type="radio" name="time_15" value="금_15"> 선택</td>
+                </tr>
+                <tr>
+                    <td>16:00</td>
+                    <td><input type="radio" name="time_16" value="월_16"> 선택</td>
+                    <td><input type="radio" name="time_16" value="화_16"> 선택</td>
+                    <td><input type="radio" name="time_16" value="수_16"> 선택</td>
+                    <td><input type="radio" name="time_16" value="목_16"> 선택</td>
+                    <td><input type="radio" name="time_16" value="금_16"> 선택</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 신청 버튼 추가 -->
+        <button class="apply" onclick="submitSurvey()">신청하기</button>
+
+        <!-- 알림 메시지 -->
+        <div class="alert" id="alertMessage">
+            <div>신청이 완료되었습니다!</div>
+            <button onclick="hideAlert()">확인</button>
+        </div>
+        <script>
+
+
+
+            function showAlert() {
+                document.getElementById('alertMessage').style.display = 'block'; // 알림 보이기
+            }
+
+            function hideAlert() {
+                document.getElementById('alertMessage').style.display = 'none'; // 알림 숨기기
+            }
+
+        </script>
+    </div>
+
+</div>
+<footer>
+    <p>
+        <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+    </p>
+</footer>
+
+</body>
+</html>

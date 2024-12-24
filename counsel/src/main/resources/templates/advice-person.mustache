@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 메인 홈페이지</title>
+    <link rel="stylesheet" href="/css/advice-person.css">
+    <script src="/js/advice-person.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div>
+            <a href="#" onclick="window.location.href='mypage.html'"><i class="fa-solid fa-house"></i> &nbsp;마이페이지</a>
+            <a href="#" onclick="window.location.href='login.mustache'"> <i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
+        </div>
+    </header>
+    <nav>
+        <h1 onclick="window.location.href='main.mustache'">학생통합상담센터</h1>
+        <a href="#" onclick="window.location.href='center.html'">센터 소개</a>
+        <a href="#" onclick="window.location.href='advice-person.mustache'">개인 상담</a>
+        <a href="#" onclick="window.location.href='program-peer.html'">프로그램</a>
+        <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
+    </nav>
+    <div class=" container-banner">
+        <img src="https://via.placeholder.com/1920x200" alt="1920x200 Placeholder 이미지">
+    </div>
+    <h2>개인 상담</h2>
+    <div class="container">
+        <!-- 사이드바 버튼 -->
+        <div class="sidebar">
+            <button href="#" class="sidebar-button" onclick="window.location.href='advice-person.mustache'">1:1 상담</button>
+            <button href="#" class="sidebar-button"  onclick="window.location.href='adivce-professor.html'">교수/학습 상담</button>
+            <button href="#" class="sidebar-button" onclick="window.location.href='adivce-job.html'">취업/진로 상담</button>
+        </div>
+        <div class="title-container">
+            <div class="home"> HOME 개인상담 > 1:1 상담</div>
+
+            <h1>1:1 상담</h1>
+            <div class="main-content">
+                <!-- 회사 소개 제목과 내용 -->
+                <div class="intro">
+                    <h4>목적</h4>
+                    <p>심리적 어려움을 전문 상담가와 함께 생각해 보면서 문제 해결 뿐만 아니라 내면세계를 깊이 탐색하여 자신에 대한 이해와 사랑 을 넓혀 가는 자기 성장의 과정입니다.</p>
+                </div>
+                <div class="vision">
+                    <h4><i class="fa-solid fa-circle-dot"></i>  내용</h4>
+                    <div class="mini-title">
+                        <div class="a">주제</div>
+                        <div class="b">학업 및 진로, 대인관계, 성격, 정서, 행동, 습관, 이성관계, 성 관련, 경제, 실존적 고민</div>
+                    </div>
+                </div>
+                <div class="services">
+                    <h4><i class="fa-solid fa-circle-dot"></i>  방법</h4>
+                    <ul>
+                        <div class="icon-order">
+                            <div class="steps">Step1</div>
+                            <div class="text-order">신청접수</div>
+                        </div>
+                        <div class="arrow-icon">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div class="icon-order">
+                            <div class="steps">Step2</div>
+                            <div class="text-order">상담사 배정</div>
+                        </div>
+                        <div class="arrow-icon">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div class="icon-order">
+                            <div class="steps">Step3</div>
+                            <div class="text-order">상담 예약</div>
+                        </div>
+                        <div class="arrow-icon">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div class="icon-order">
+                            <div class="steps">Step4</div>
+                            <div class="text-order">개인상담</div>
+                        </div>
+                    </ul>
+
+                    <div class="c">
+                        <div class="talk">
+                            <div class="category"><i class="fa-solid fa-file-lines"></i> 상담방법</div> <div class="details">상담 신청 후 상담사와 상담시간을 조율하여 1:1상담으로 진행합니다</div>
+                        </div>
+                        <div class="talk">
+                            <div class="category"><i class="fa-solid fa-clock"></i> 상담시간</div> <div class="details">주1회, 50분이며 모든 상담은 비밀 보장이 됩니다.</div>
+                        </div>
+                        <div class="talk">
+                            <div class="category"><i class="fa-solid fa-check"></i> 상담방법</div> <div class="details">센터 방문 / 온라인(전화, 이메일) 신청 가능합니다.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="values">
+                    <div class="numbertitle"><i class="fa-solid fa-square-phone"></i>  문의</div>
+                    <div class="number"> 010-1234-1234</div>
+                </div>
+                </section>
+                <button class="apply" onclick="openModal()">상담신청하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>
+        <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+    </p>
+</footer>
+
+<!-- 모달 창 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4> 개인상담 동의서 </h4>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <!-- 추가적인 입력 필드나 내용을 여기에 추가할 수 있습니다. -->
+
+        <div class="modal-detail">
+            <div class="modal-main">
+                학생통합상담센터(이하 ‘상담센터’)는 여러분의 인적사항과 상담내용에 대하여 비밀을 지켜드릴 것을 약속합니다. 더불어 보다 효과적인 상담서비스를 제공하기 위해 필요한 몇 가지 사항에 대해 동의를 구하고자 합니다.
+            </div>
+            <div class="modla-intro">
+                <h5>상담 과정</h5>
+
+                ① 상담은 내담자가 자발적으로 동의할 때 시작되는 것을 원칙으로 합니다. 내담자는 상담을 통해 도움을 받을 수 있을 뿐아니라 원치않으면 상담을 거부할 수 있습니다.
+
+                ② 상담자는 내담자 스스로가 문제를 해결할 수 있도록 도와주고 힘을 키워주는 조력자 역할을 합니다.
+            </div>
+            <div class="form-group">
+                <h5>상담 시간 약속</h5>
+
+                ① 상담은 주 1회 50분 동안 진행되며, 상담자와 내담자 간에 합의된 요일과 시간에 이루어집니다.
+                <br>
+                ② 상담 약속 시간에 늦을 경우, 정해진 상담 약속 시간에 한해서만 상담을 받을 수 있습니다.
+                <br>
+                ③ 상담자 또는 내담자 사정으로 상담 예약시간 변경 시, 예약일 기준 하루 전까지 연락해서 상호동의 하에 약속시간을 변경할 수 있습니다.
+                <br>
+                ④ 내담자가 연락없이 3회 이상 결석하면, 상담자는 종결 처리될 수 있음을 안내하고 내담자가 이에 대한 응답이 없으면 상담은 종결됩니다. (학생통합상담센터: 041-580-2385, 2384)
+                <br>
+                ⑤ 상담은 1회 신청시 12회기 기준입니다. 1회 연장 신청 가능합니다.(예_24회기) 재학도중 3회까지 신청가능합니다. 단, 추가 상담 필요시 센터내부 회의를 통해 연장할 수 있습니다.
+            </div>
+            <div class="modal-disclaimer">
+                <h5>상담기록 및 비밀보호의 한계</h5>
+
+                ① 상담센터는 [한국상담심리학회의 상담사 윤리규정]에 근거하여, 내담자에 대한 상담 내용 기록 및 녹음에 관하여 비밀보장의 의무를 준수합니다.
+                <br>
+                ② 상담센터는 상담에 대한 사례회의와 지도감독을 위해 내담자의 동의하에 상담내용을 기록하고 녹음할 수 있습니다. 내담자의 개인정보, 상담 관련 기록 및 녹음은 유출되지 않으며 5년 이내 보관하고 이후 폐기처리합니다.
+                <br>
+                ③ 상담센터는 내담자의 동의없이 내담자와 관련한 어떠한 정보도 유출하지 않습니다. 단, [한국상담심리학회 상담자 윤리규정 제5조 다. 비밀보호의 한계 조항]에 따라 다음과 같은 경우에 내담자의 상담관련 정보를 제공할 수 있습니다.
+                <br>
+                가. 내담자의 생명이나 타인 및 사회의 안전을 위협하는 경우
+                <br>
+                나. 내담자가 감염성이 있는 치명적인 질병이 있다는 확실한 정보를 가졌을 경우
+                <br>
+                다. 법원이 내담자의 상담관련 정보를 요구할 경우
+                <br>
+                ④ 내담자에 대한 정보 공개가 불가피할 경우, 내담자에게 정보공개 사실을 알리고 최소한의 정보(상담회기 일자)만을 공개합니다. 이외에 상담자가 상담의 전문성을 위해 기록한 심리치료기록과 상담녹음은 공개하지 않습니다.
+            </div>
+            <div class="modal-confirm">
+                <h5>매체상담시 약속</h5>
+
+                ① 내담자는 상담 예약한 시간에 조용한 독립된 장소에서 미리 대기하여 준비합니다.
+                <br>
+                ② 내담자는 매체상담 중에 상담에 집중할 수 있도록 다른 일(카톡 등)을 하지 않습니다.
+                <br>
+                ③ 내담자는 매체상담 중에 상담내용을 녹음,녹화,캡처 하지 않으며 상담내용을 유출하지 않습니다. 상담 중 나눈 내용은 상호신뢰를 전체로 비밀보장합니다.
+                <br>
+            </div>
+            <div class="modal-final">
+                <h5>위기상담 과정</h5>
+
+                ① 위기상담이란, 내담자의 심리적, 신체적 상태가 상담센터에서 다룰 수 있는 범위를 넘어서 정신의학적 개입이 반드시 필요한 사례를 의미합니다.
+                <br>
+                ② 위기상담을 판단하는 기준은 다음과 같습니다.
+                <br>
+                가. 자살 및 자해의 위험성이 매우 높거나 타인에게 위해를 가할 위험성이 높은 사례
+                <br>
+                나. 심각한 정신과적 장애를 가진 것으로 판단되는 사례
+                <br>
+                다. 그 외 심도있는 전문적 개입이 필요하다고 판단되는 사례(발달장애, 성폭력 관련 등)
+                <br>
+                ③ 위기평가에서 고위험으로 평가되면 외부전문기관으로 연계합니다. 중위험 및 저위험으로 평가되면 상담센터에서 상담합니다. 이후 상담진행 중에 고위험이 되면 재평정에 의해 외부전문기관으로 연계합니다
+                <br>
+                ④ 위기상담에 해당하는 내담자가 치료에 동의하지 않는 경우, 상담은 종결처리되며 상담센터는 의뢰인 및 가족에게 내담자의 현재 상태를 알려야 할 의무가 있습니다.
+                <br>
+                ⑤ 상담기간 동안 내담자가 자신과 타인을 해치는 행위를 하지 않겠다는 서약을 전제로 상담이 진행되며, 서약을 지키지 않을시 이에 따른 책임은 상담센터나 상담자에게 있지 않습니다.
+                <br>
+                ➅ 자살충동이나 상해충동 등 신상에 큰 변화를 초래할 수 있는 중요한 사항이 발생할 경우, 사전에 상담센터(041-580-2385, 2384)로 연락해서 상담자에게 알리셔야 합니다. 만약 상담센터에 연락이 안되는 경우, 24시간 연락가능한 자살예방센터(1393 또는 1577-0199)로 연락하시기 바랍니다.
+            </div>
+            <div class="modal-agree">
+                <h3>위의 내용을 충분히 숙지했으며 동의합니다</h3>
+            </div>
+            <div class="modal-button">
+                <button class="applyButton"  onclick="window.location.href='/survey'">예</button>
+                <button class="denyButton"  onclick="closeModal()">아니오</button>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById("myModal").style.display = "block"; // 모달 열기
+    }
+
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none"; // 모달 닫기
+    }
+
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+        const modal = document.getElementById("myModal");
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+</body>
+</html>

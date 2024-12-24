@@ -43,8 +43,9 @@ public class SecurityConfig {
         http
                 // URL 접근 권한 설정
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/join", "/joinProc", "/oauth2/**", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/").authenticated() // 메인 페이지는 인증된 사용자만 접근 가능
+                        .requestMatchers("/login", "/main","/join", "/joinProc","/admin/login",
+                                "/advice-person","/survey","/oauth2/**","/reset-password", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 메인 페이지는 인증된 사용자만 접근 가능
                         .anyRequest().authenticated()
                 )
 
@@ -52,7 +53,7 @@ public class SecurityConfig {
                 .formLogin((auth) -> auth
                         .loginPage("/login")              // 사용자 정의 로그인 페이지
                         .loginProcessingUrl("/loginProc") // 로그인 처리 URL
-                        .defaultSuccessUrl("/", true)     // 로그인 성공 시 메인 페이지로 이동
+                        .defaultSuccessUrl("/main", true)     // 로그인 성공 시 메인 페이지로 이동
                         .permitAll()
                 )
 

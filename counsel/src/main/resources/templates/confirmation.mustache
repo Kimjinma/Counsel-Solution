@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>프로그램 신청 확인</title>
+</head>
+<body>
+<h1>프로그램 신청 내역</h1>
+<table>
+    <thead>
+    <tr>
+        <th>신청 번호</th>
+        <th>프로그램 이름</th>
+        <th>승인 여부</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#requests}}
+        <tr>
+            <td>{{reqNo}}</td>
+            <td>{{programName}}</td>
+            <td>{{aprvYn}}</td>
+        </tr>
+    {{/requests}}
+    </tbody>
+</table>
+</body>
+</html>
