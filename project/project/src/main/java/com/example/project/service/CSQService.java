@@ -1,6 +1,6 @@
 package com.example.project.service;
 
-import com.example.project.dto.CSDTO;
+import com.example.project.dto.CsDTO;
 import com.example.project.dto.CounselRequestDTO;
 import com.example.project.dto.UpdateUserDTO;
 import com.example.project.entity.CS_ANSEntity;

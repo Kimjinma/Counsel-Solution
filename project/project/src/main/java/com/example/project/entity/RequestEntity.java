@@ -18,6 +18,9 @@ public class RequestEntity {
     @Column(name = "CNS_TYPE")
     private String counselingType;
 
+    @Column(name = "APRV_YN", length = 3)
+    private String aprv; // 완료여부
+
     @ManyToOne
     @JoinColumn(name = "EMP_NO", referencedColumnName = "EMP_NO", insertable = false, updatable = false)
     private CounselorEntity emp;
@@ -49,6 +52,8 @@ public class RequestEntity {
     @Column(name = "APPLY_NMTR") // 신청 횟수
     private Integer applyCount;
 
+    @Column(name="CS_YN", length = 3)
+    private String csyn;
     // 기본 생성자 추가
     public RequestEntity() {
     }
@@ -60,6 +65,15 @@ public class RequestEntity {
 
     public void setCnsNo(Integer cnsNo) {
         this.cnsNo = cnsNo;
+    }
+    // Getter
+    public String getAprv() {
+        return aprv;
+    }
+
+    // Setter
+    public void setAprv(String aprv) {
+        this.aprv = aprv;
     }
 
     public StudentEntity getStudentNo() {
@@ -76,7 +90,16 @@ public class RequestEntity {
 
     public void setCounselingType(String counselingType) {
         this.counselingType = counselingType;
+    }// Getters and Setters
+    public String getCsyn() {
+        return csyn;
     }
+    public void setCsyn(String csyn) {
+        this.csyn = csyn;
+    }
+
+
+
     public CounselorEntity getEmp() {
         return emp;
     }
@@ -156,5 +179,7 @@ public class RequestEntity {
 
     public void setApplyCount(Integer applyCount) {
         this.applyCount = applyCount;
+
     }
+
 }
