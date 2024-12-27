@@ -27,11 +27,11 @@ public class SecurityConfig {
                         .requestMatchers("/admin").hasRole("ADMIN") // ADMIN 권한만 접근 가능
 
                         // 학생 마이페이지 접근 권한 설정
-                        .requestMatchers("/mypage/profile").hasAnyRole("ADMIN", "USER", "STUDENT") // 학생 개인정보 수정 접근 권한
+                        .requestMatchers("/mypage/profile", "/mypage/update").hasAnyRole("ADMIN", "USER", "STUDENT") // 학생 개인정보 수정 접근 권한
                         .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 학생 상담 신청 정보 접근 권한
 
                         // 상담사 마이페이지 접근 권한 설정
-                        .requestMatchers("/counselor/mypage/profile").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 개인정보 수정 접근 권한
+                        .requestMatchers("/counselor/mypage/profile","/counselor/mypage/update").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 개인정보 수정 접근 권한
                         .requestMatchers("/counselor/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 상담 신청 정보 접근 권한
                 )
 
