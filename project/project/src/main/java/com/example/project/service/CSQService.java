@@ -1,6 +1,10 @@
 package com.example.project.service;
 
+import com.example.project.dto.CSDTO;
+import com.example.project.dto.CounselRequestDTO;
 import com.example.project.dto.UpdateUserDTO;
+import com.example.project.entity.CS_ANSEntity;
+import com.example.project.entity.RequestEntity;
 import com.example.project.entity.StudentEntity;
 import com.example.project.entity.UserEntity;
 import com.example.project.repository.CSQRepository;
