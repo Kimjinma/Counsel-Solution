@@ -31,9 +31,16 @@ public class SecurityConfig {
                         .requestMatchers("/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "STUDENT") // 학생 상담 신청 정보 접근 권한
 
                         // 상담사 마이페이지 접근 권한 설정
-                        .requestMatchers("/counselor/mypage/profile","/counselor/mypage/update").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 개인정보 수정 접근 권한
-                        .requestMatchers("/counselor/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "COUNSELOR") // 상담사 상담 신청 정보 접근 권한
+                        .requestMatchers("/counselor/mypage/profile","/counselor/mypage/update").hasAnyRole("ADMIN", "USER", "COUNSELOR","STUDENT") // 상담사 개인정보 수정 접근 권한
+                        .requestMatchers("/counselor/mypage/counselRequests").hasAnyRole("ADMIN", "USER", "COUNSELOR","STUDENT") // 상담사 상담 신청 정보 접근 권한
+                        // 만족도 조사 API 접근 권한 설정
+                        .requestMatchers("/mypage/counselorRequest/mymodal/**").hasAnyRole("ADMIN", "USER", "STUDENT")
+                        .requestMatchers("/counselor/mypage/updateStatus").hasAnyRole("ADMIN", "COUNSELOR","STUDENT")
+                        .requestMatchers("/counselor/mypage/updateStatus").authenticated()
+                        .requestMatchers("/favicon.ico").permitAll()
+
                 )
+
 
                 .formLogin(auth -> auth
                         .loginPage("/login") // 로그인 페이지 URL

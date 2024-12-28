@@ -56,23 +56,61 @@
         th {
             background-color: #f2f2f2;
         }
-    </style>
-    <script>
-        function showTab(tabId) {
-            // 모든 탭의 active 클래스 제거
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
 
-            // 선택된 탭과 내용 활성화
-            document.getElementById(tabId + '-tab').classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-
-            // URL 업데이트 (탭에 따라 변경)
-            const newUrl = tabId === 'profile' ? '/counselor/mypage/profile' : '/counselor/mypage/counselRequests';
-            history.pushState(null, '', newUrl);
-
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
         }
-    </script>
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal .close {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .modal .close:hover {
+            color: red;
+        }
+
+        .calendar td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .calendar td.available {
+            background-color: #d4edda;
+        }
+
+        .calendar td.unavailable {
+            background-color: #f8d7da;
+            cursor: not-allowed;
+        }
+
+        .calendar td:hover {
+            background-color: #c3e6cb;
+        }
+    </style>
 </head>
 <body>
 <h1>상담사 마이페이지</h1>
@@ -109,37 +147,99 @@
         <tr>
             <th>상담 번호</th>
             <th>학생 번호</th>
-            <th>직원 번호</th>
-            <th>일정 번호</th>
-            <th>진행 상태</th>
-            <th>일정 시작일</th>
-            <th>일정 종료일</th>
-            <th>일정 여부</th>
-            <th>상담 유형</th>
-            <th>상담 사유</th>
-            <th>상담 내용</th>
-            <th>신청 여부</th>
-            <th>신청 횟수</th>e
+            <th>상담 일시</th>
+            <th>상담 구분</th>
+            <th>신청일</th>
+            <th>예약 상태</th>
+            <th>상담 기록</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="request : ${counselRequests}">
             <td th:text="${request.cnsNo}"></td>
             <td th:text="${request.studentNo}"></td>
-            <td th:text="${request.empNo}"></td>
             <td th:text="${request.schedNo}"></td>
-            <td th:text="${request.counselingProgress}"></td>
-            <td th:text="${request.scheduleStartDate}"></td>
-            <td th:text="${request.scheduleEndDate}"></td>
-            <td th:text="${request.scheduleYn}"></td>
             <td th:text="${request.counselingType}"></td>
-            <td th:text="${request.counselingReason}"></td>
+            <td th:text="${request.scheduleStartDate}"></td>
+            <td>
+                <button th:if="${request.applyYn == '대기중'}" onclick="openModal([[${request.cnsNo}]])">대기중</button>
+            </td>
             <td th:text="${request.counselingContent}"></td>
-            <td th:text="${request.applyYn}"></td>
-            <td th:text="${request.applyCount}"></td>
+
+
         </tr>
         </tbody>
     </table>
 </div>
+
+<!-- 모달 -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">X</span>
+        <h3>예약 가능 날짜</h3>
+        <table class="calendar">
+            <tr>
+                <td class="available" onclick="selectDate(this)">1</td>
+                <td class="available" onclick="selectDate(this)">2</td>
+                <td class="unavailable">3</td>
+            </tr>
+            <tr>
+                <td class="available" onclick="selectDate(this)">4</td>
+                <td class="available" onclick="selectDate(this)">5</td>
+                <td class="unavailable">6</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId) {
+        // 모든 탭의 active 클래스 제거
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+
+        // 선택된 탭과 내용 활성화
+        document.getElementById(tabId + '-tab').classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+
+        // URL 업데이트 (탭에 따라 변경)
+        const newUrl = tabId === 'profile' ? '/counselor/mypage/profile' : '/counselor/mypage/counselRequests';
+        history.pushState(null, '', newUrl);
+    }
+
+    function openModal(cnsNo) {
+        const modal = document.getElementById('modal');
+        modal.dataset.cnsNo = cnsNo; // 상담 번호 저장
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+    }
+
+    function selectDate(cell) {
+        const scheduleYn = cell.textContent; // 선택된 날짜
+        const cnsNo = document.getElementById('modal').dataset.cnsNo; // 상담 번호
+        const applyYn = "승인"; // 상태를 "승인"으로 설정
+
+        fetch('/counselor/mypage/updateStatus', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `cnsNo=${cnsNo}&applyYn=${applyYn}&scheduleYn=${scheduleYn}`
+        })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'success') {
+                    alert(`${scheduleYn} 예약이 승인되었습니다.`);
+                    closeModal(); // 모달 닫기
+                    location.reload(); // 상태 업데이트 후 새로고침
+                } else {
+                    alert('예약 업데이트에 실패했습니다.');
+                }
+            });
+    }
+
+</script>
 </body>
 </html>

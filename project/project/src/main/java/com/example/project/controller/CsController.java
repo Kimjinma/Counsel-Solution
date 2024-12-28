@@ -14,16 +14,19 @@ public class CsController {
     private CsService csService;
 
     // 설문조사 제출 API
-    @PostMapping("/mymodalupdate")
-    public ResponseEntity<String> submitSurvey(@RequestBody CsDTO csDTO) {
-        try {
-            // 서비스에서 설문 데이터 처리
-            Integer counselorNo = Integer.valueOf(csDTO.getCounselorNo());
+    @PostMapping("/mymodalupdate/{cnsNo}")
+    public ResponseEntity<String> submitSurvey(
+            @PathVariable Integer cnsNo,
+            @RequestBody CsDTO csDTO) {
+        if (!csService.isValidCnsNo(cnsNo)) {
+            return ResponseEntity.badRequest().body("유효하지 않은 상담 번호입니다.");
+        }
 
-            csService.updateaprv(counselorNo, csDTO);
-            return ResponseEntity.ok("설문조사가 완료되었습니다.");
-        } catch (IllegalStateException | IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage()); // 에러 처리
+        try {
+            csService.saveSurvey(cnsNo, csDTO);
+            return ResponseEntity.ok("만족도 조사가 성공적으로 처리되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("이미 제출한 만족도 조사입니다");
         }
     }
 }

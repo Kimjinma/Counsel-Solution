@@ -60,4 +60,25 @@ public class CounselorMyPageController {
         model.addAttribute("counselRequests", counselRequests);
         return "counselormypage";
     }
+    // 예약 상태 업데이트
+    @PostMapping("/updateStatus")
+    public String updateReservationStatus(@AuthenticationPrincipal UserDetails userDetails,
+                                          Integer cnsNo, // 상담 번호
+                                          String applyYn, // 상태 ("승인" 또는 "대기중")
+                                          String scheduleYn, // 일정 시작일
+                                          Model model) {
+        String username = userDetails.getUsername();
+
+        // 상담 번호를 기반으로 예약 상태 업데이트
+        boolean isUpdated = requestService.updateReservationStatus(cnsNo, applyYn, scheduleYn);
+
+        if (isUpdated) {
+            model.addAttribute("message", "예약 상태가 성공적으로 업데이트되었습니다.");
+        } else {
+            model.addAttribute("error", "예약 상태 업데이트에 실패했습니다.");
+        }
+
+        return "redirect:/counselor/mypage/counselRequests"; // 업데이트 후 상담 신청 정보 페이지로 리다이렉트
+    }
+
 }

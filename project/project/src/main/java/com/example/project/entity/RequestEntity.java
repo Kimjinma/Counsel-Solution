@@ -1,6 +1,7 @@
 package com.example.project.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
 @Entity
@@ -58,6 +59,13 @@ public class RequestEntity {
     public RequestEntity() {
     }
 
+    public String getCS_YN() {
+        return csyn;
+    }
+    public void setCS_YN(String csyn) {
+        this.csyn=csyn;
+
+        }
     // Getter 및 Setter
     public Integer getCnsNo() {
         return cnsNo;
