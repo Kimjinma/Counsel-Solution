@@ -32,7 +32,7 @@ public class RequestEntity {
     @Column(name = "CNS_PRGSS") // 진행 상태
     private Integer counselingProgress;
 
-    @Column(name = "SCHD_START_DATE") // 일정 시작일
+    @Column(name = "SCHD_ST_DT") // 일정 시작일
     private LocalDate scheduleStartDate;
 
     @Column(name = "SCHD_END_DATE") // 일정 종료일
@@ -44,7 +44,7 @@ public class RequestEntity {
     @Column(name = "CNS_REASON") // 상담 사유
     private String counselingReason;
 
-    @Column(name = "CNS_CONTENT", length = 4000) // 상담 내용
+    @Column(name = "SCHD_CONTS", length = 4000) // 상담 내용
     private String counselingContent;
 
     @Column(name = "APPLY_YN") // 신청 여부

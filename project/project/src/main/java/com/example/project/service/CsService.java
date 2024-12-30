@@ -53,6 +53,10 @@ public class CsService {
         csEntity.setId(UUID.randomUUID().toString()); // 고유 ID 생성
         csEntity.setScore(totalScore); // 합산 점수 저장
         csEntity.setSubans(csDTO.getQuestion4()); // 주관식 답변 저장
+
+        csEntity.setSubans(csDTO.getQuestion5()); // 주관식 답변 저장
+        csEntity.setSubans(csDTO.getQuestion6()); // 주관식 답변 저장
+
         csEntity.setCnsno(requestEntity); // 상담 정보 연결
         csEntity.setEmpNo(requestEntity.getEmp());
         // 6. 저장

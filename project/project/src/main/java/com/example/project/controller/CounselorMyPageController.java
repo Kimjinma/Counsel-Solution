@@ -8,6 +8,7 @@ import com.example.project.service.CounselorRqeService;
 import com.example.project.service.CounselorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/counselor/mypage")
@@ -94,4 +98,55 @@ public class CounselorMyPageController {
         // 4. 상담 신청 정보 페이지로 리다이렉트
         return "redirect:/counselor/mypage/counselRequests";
     }
+
+    @PostMapping("/updateContent")
+    public ResponseEntity<CounselRequestDTO> updateCounselingContent(
+            @AuthenticationPrincipal UserDetails userDetails, // 로그인된 사용자 정보
+
+            @RequestParam Integer cnsNo,
+            @RequestParam String counselingContent) {
+
+        String username = userDetails.getUsername();
+
+        try {
+            // 업데이트 및 결과 조회
+            CounselRequestDTO updatedData = requestService.updateschdconts(username, cnsNo, counselingContent);
+            return ResponseEntity.ok(updatedData);
+        } catch (IllegalArgumentException e) {
+            // 예외 처리
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/getContent")
+    public ResponseEntity<List<Map<String, String>>> contentRequest(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam(value = "cnsNo", required = false) Integer cnsNo) {
+        // 로그인된 사용자의 username 가져오기
+        String username = userDetails.getUsername();
+
+        try {
+            // username으로 cnsNo를 찾고, cnsNo로 상담 기록을 가져오기
+            List<Map<String, String>> records = requestService.getCounselContentByUsername(username);
+
+            // 특정 cnsNo로 필터링
+            if (cnsNo != null) {
+                records = records.stream()
+                        .filter(record -> cnsNo.equals(Integer.valueOf(record.get("cnsNo"))))
+                        .collect(Collectors.toList());
+            }
+
+            // 데이터가 없으면 빈 리스트 반환
+            if (records.isEmpty()) {
+                return ResponseEntity.ok(Collections.emptyList());
+            }
+
+            // 데이터 반환
+            return ResponseEntity.ok(records);
+
+        } catch (IllegalArgumentException e) {
+            // 오류 처리: 잘못된 요청
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
+    }
+
 }

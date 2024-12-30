@@ -18,6 +18,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
 
     // findByUsername 메서드 구현
     public UserEntity findByUsername(String username) {
@@ -65,4 +66,5 @@ public class UserService {
         userRepository.save(userEntity);
         studentRepository.save(studentEntity);
     }
+
 }

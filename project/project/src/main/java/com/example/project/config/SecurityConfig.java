@@ -36,8 +36,10 @@ public class SecurityConfig {
                         // 만족도 조사 API 접근 권한 설정
                         .requestMatchers("/mypage/counselorRequest/mymodal/**").hasAnyRole("ADMIN", "USER", "STUDENT")
                         .requestMatchers("/counselor/mypage/updateStatus").hasAnyRole("ADMIN", "COUNSELOR","STUDENT")
-                        .requestMatchers("/counselor/mypage/updateStatus").authenticated()
-                        .requestMatchers("/co3").authenticated()
+                        .requestMatchers("/counselor/mypage/updateContent").authenticated()
+                        .requestMatchers("/counselor/mypage/getContent").authenticated()
+
+                        .requestMatchers("/mypage_co3.css", "/style.css", "/static/**", "/favicon.ico").permitAll() // 정적 파일 접근 허용
 
                         .requestMatchers("/favicon.ico").permitAll()
 

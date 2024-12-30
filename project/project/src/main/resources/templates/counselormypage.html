@@ -112,6 +112,7 @@
         }
     </style>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/mypage_co3.css">
 
 </head>
 <body>
@@ -160,9 +161,10 @@
         <tr th:each="request : ${counselRequests}">
             <td th:text="${request.cnsNo}"></td>
             <td th:text="${request.studentNo}"></td>
+            <td th:text="${request.scheduleStartDate}"></td>
             <td th:text="${request.schedNo}"></td>
             <td th:text="${request.counselingType}"></td>
-            <td th:text="${request.scheduleStartDate}"></td>
+
             <td>
                 <button th:if="${request.applyYn == '대기중'}"
                         class="waiting-button"
@@ -172,15 +174,18 @@
                       class="approved-status">승인</span>
             </td>
 
-            <td th:text="${request.counselingContent}"></td>
 
+            <td>
+
+            <button class="record-button" th:data-cns-no="${request.cnsNo}">상담 기록 보기</button>
+            </td>
 
         </tr>
         </tbody>
     </table>
 </div>
 
-<!-- 모달 -->
+<!-- 승인여부 모달 -->
 <div id="myModal" class="modal" style="display: none;">
     <div class="modal-content">
         <div class="modal-header">
@@ -210,6 +215,24 @@
     </div>
 </div>
 
+<!--상담기록 모달 -->
+<div id="recordModal" class="modal">
+<div class="modal-content">
+    <div class="modal-header">
+        <h2>상담 기록</h2>
+        <span class="close" onclick="closeRecordModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div id="recordList">
+            <!-- 기존 상담 기록이 여기에 표시됩니다 -->
+        </div>
+        <div class="record-input">
+            <textarea id="newRecordContent" rows="4" placeholder="상담 내용을 입력하세요..."></textarea>
+            <button id="addRecordButton">기록 추가</button>
+        </div>
+    </div>
+</div>
+</div>
 
 
 <script>
@@ -344,6 +367,100 @@
         // 초기 달력 렌더링
         renderCalendar();
     });
+
+
+
+// 상담기록 모달 자바스크립트
+    document.addEventListener("DOMContentLoaded", () => {
+        const recordModal = document.getElementById("recordModal");
+        const addRecordButton = document.getElementById("addRecordButton");
+        const newRecordContent = document.getElementById("newRecordContent");
+        const recordList = document.getElementById("recordList");
+
+        // 상담 기록 모달 열기
+        document.querySelectorAll(".record-button").forEach(button => {
+            button.addEventListener("click", (event) => {
+                const cnsNo = event.target.dataset.cnsNo;
+                recordModal.dataset.cnsNo = cnsNo; // 모달에 상담 번호 저장
+                fetchRecordContent(cnsNo); // 기존 상담 내용 로드
+                recordModal.style.display = "block"; // 모달 열기
+            });
+        });
+
+        // 상담 기록 모달 닫기
+        window.closeRecordModal = function () {
+            recordModal.style.display = "none";
+            newRecordContent.value = ""; // 입력 필드 초기화
+        };
+
+        // 상담 기록 로드 함수
+        function fetchRecordContent(cnsNo) {
+            fetch(`/counselor/mypage/getContent?cnsNo=${cnsNo}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch records");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Fetched data:", data); // 응답 데이터 확인
+                    recordList.innerHTML = ""; // 기존 기록 초기화
+                    if (!data || data.length === 0) {
+                        recordList.innerHTML = "<p>상담 기록이 없습니다.</p>";
+                        return;
+                    }
+                    data.forEach(record => {
+                        const recordItem = document.createElement("div");
+                        recordItem.textContent = `상담 번호: ${record.cnsNo}, 내용: ${record.content}`;
+                        recordList.appendChild(recordItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading records:", error);
+                    recordList.innerHTML = "<p>오류가 발생했습니다.</p>";
+                });
+        }
+
+
+        // 상담 기록 추가 함수
+        addRecordButton.addEventListener("click", () => {
+            const cnsNo = recordModal.dataset.cnsNo;
+            const content = newRecordContent.value.trim();
+
+            if (!content) {
+                alert("내용을 입력하세요.");
+                return;
+            }
+
+            fetch("/counselor/mypage/updateContent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    cnsNo: cnsNo,
+                    counselingContent: content,
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("상담 기록이 성공적으로 업데이트되었습니다.");
+                        fetchRecordContent(cnsNo); // 업데이트된 내용 로드
+                        newRecordContent.value = ""; // 입력 필드 초기화
+                    } else {
+                        alert("상담 기록 업데이트에 실패했습니다.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error updating record:", error);
+                    alert("서버와의 통신 중 오류가 발생했습니다.");
+                });
+        });
+    });
+
+
+
+
 
 
 
