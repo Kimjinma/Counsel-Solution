@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
-    @GetMapping("/main")
+    @GetMapping("/co3")
     public String mainP() {
-        return "main"; // main.html을 반환
+        return "mypage_co3"; // main.html을 반환
     }
 }

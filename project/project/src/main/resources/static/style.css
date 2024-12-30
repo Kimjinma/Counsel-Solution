@@ -1,0 +1,57 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+table#calendar {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table#calendar th,
+table#calendar td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+table#calendar td.available {
+    background-color: #a3d9ff;
+}
+
+table#calendar td.unavailable {
+    background-color: #f4f4f4;
+    cursor: not-allowed;
+}
+
+table#calendar td.selected {
+    background-color: #ffa3a3;
+}

@@ -111,6 +111,8 @@
             background-color: #c3e6cb;
         }
     </style>
+    <link rel="stylesheet" href="/style.css">
+
 </head>
 <body>
 <h1>상담사 마이페이지</h1>
@@ -162,8 +164,14 @@
             <td th:text="${request.counselingType}"></td>
             <td th:text="${request.scheduleStartDate}"></td>
             <td>
-                <button th:if="${request.applyYn == '대기중'}" onclick="openModal([[${request.cnsNo}]])">대기중</button>
+                <button th:if="${request.applyYn == '대기중'}"
+                        class="waiting-button"
+                        th:data-cns-no="${request.cnsNo}">대기중</button>
+
+                <span th:if="${request.applyYn == '승인'}"
+                      class="approved-status">승인</span>
             </td>
+
             <td th:text="${request.counselingContent}"></td>
 
 
@@ -173,24 +181,36 @@
 </div>
 
 <!-- 모달 -->
-<div class="modal" id="modal">
+<div id="myModal" class="modal" style="display: none;">
     <div class="modal-content">
-        <span class="close" onclick="closeModal()">X</span>
-        <h3>예약 가능 날짜</h3>
-        <table class="calendar">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="controls">
+                <button onclick="changeMonth(-1)">&#60;</button>
+                <span id="monthYear"></span>
+                <button onclick="changeMonth(1)">&#62;</button>
+            </div>
+        </div>
+        <table id="calendar">
+            <thead>
             <tr>
-                <td class="available" onclick="selectDate(this)">1</td>
-                <td class="available" onclick="selectDate(this)">2</td>
-                <td class="unavailable">3</td>
+                <th>일</th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+                <th>토</th>
             </tr>
-            <tr>
-                <td class="available" onclick="selectDate(this)">4</td>
-                <td class="available" onclick="selectDate(this)">5</td>
-                <td class="unavailable">6</td>
-            </tr>
+            </thead>
+            <tbody>
+            <!-- JavaScript가 동적으로 날짜를 렌더링 -->
+            </tbody>
         </table>
     </div>
 </div>
+
+
 
 <script>
     function showTab(tabId) {
@@ -207,38 +227,125 @@
         history.pushState(null, '', newUrl);
     }
 
-    function openModal(cnsNo) {
-        const modal = document.getElementById('modal');
-        modal.dataset.cnsNo = cnsNo; // 상담 번호 저장
-        modal.style.display = 'block';
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("myModal");
+        const calendarBody = document.querySelector("#calendar tbody");
+        const monthYear = document.getElementById("monthYear");
 
-    function closeModal() {
-        const modal = document.getElementById('modal');
-        modal.style.display = 'none';
-    }
+        let currentDate = new Date();
 
-    function selectDate(cell) {
-        const scheduleYn = cell.textContent; // 선택된 날짜
-        const cnsNo = document.getElementById('modal').dataset.cnsNo; // 상담 번호
-        const applyYn = "승인"; // 상태를 "승인"으로 설정
-
-        fetch('/counselor/mypage/updateStatus', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `cnsNo=${cnsNo}&applyYn=${applyYn}&scheduleYn=${scheduleYn}`
-        })
-            .then(response => response.text())
-            .then(result => {
-                if (result === 'success') {
-                    alert(`${scheduleYn} 예약이 승인되었습니다.`);
-                    closeModal(); // 모달 닫기
-                    location.reload(); // 상태 업데이트 후 새로고침
-                } else {
-                    alert('예약 업데이트에 실패했습니다.');
-                }
+        // 모달 열기
+        document.querySelectorAll(".waiting-button").forEach(button => {
+            button.addEventListener("click", (event) => {
+                const cnsNo = event.target.dataset.cnsNo; // 상담 번호 가져오기
+                modal.dataset.cnsNo = cnsNo; // 모달에 상담 번호 저장
+                renderCalendar();
+                modal.style.display = "block"; // 모달 열기
             });
-    }
+        });
+
+        // 모달 닫기
+        window.closeModal = function () {
+            modal.style.display = "none";
+        };
+
+        // 월 변경
+        window.changeMonth = function (direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        };
+
+        // 달력 렌더링
+        function renderCalendar() {
+            calendarBody.innerHTML = ""; // 기존 내용을 비움
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            // 월/연도 업데이트
+            monthYear.textContent = `${year}년 ${month + 1}월`;
+
+            // 첫 번째 날과 마지막 날
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            // 이전 달의 빈 칸 채우기
+            let row = document.createElement("tr");
+            for (let i = 0; i < firstDay; i++) {
+                row.appendChild(document.createElement("td"));
+            }
+
+            // 날짜 채우기
+            for (let day = 1; day <= lastDate; day++) {
+                if (row.children.length === 7) {
+                    calendarBody.appendChild(row);
+                    row = document.createElement("tr");
+                }
+
+                const cell = document.createElement("td");
+                cell.textContent = day;
+                cell.classList.add("available");
+                cell.addEventListener("click", () => handleDateClick(day));
+                row.appendChild(cell);
+            }
+
+            // 마지막 줄 추가
+            if (row.children.length > 0) {
+                calendarBody.appendChild(row);
+            }
+        }
+
+        // 날짜 클릭 이벤트
+        function handleDateClick(day) {
+            const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toISOString().split("T")[0];
+            const cnsNo = modal.dataset.cnsNo; // 모달에서 상담 번호 가져오기
+
+            const confirmed = confirm(`${selectedDate} 날짜로 예약하시겠습니까?`);
+            if (confirmed) {
+                // 서버 요청
+                fetch("/counselor/mypage/updateStatus", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        cnsNo: cnsNo,
+                        applyYn: "승인",
+                        scheduleStartDate: selectedDate
+                    })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("예약이 성공적으로 완료되었습니다.");
+                            closeModal(); // 모달 닫기
+                            updateTableRow(cnsNo, selectedDate); // 테이블 업데이트
+                        } else {
+                            alert("예약 처리에 실패했습니다.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("서버와의 통신 중 오류가 발생했습니다.");
+                    });
+            }
+        }
+
+        // 테이블 업데이트 함수
+        function updateTableRow(cnsNo, scheduleDate) {
+            const row = document.querySelector(`button[data-cns-no='${cnsNo}']`).closest("tr");
+            if (row) {
+                const statusCell = row.querySelector("td:nth-child(6)"); // 예약 상태 열
+                const dateCell = row.querySelector("td:nth-child(5)"); // 신청일 열
+
+                statusCell.textContent = "승인"; // 상태를 승인으로 변경
+                dateCell.textContent = scheduleDate; // 신청일 업데이트
+            }
+        }
+
+        // 초기 달력 렌더링
+        renderCalendar();
+    });
+
+
 
 </script>
 </body>

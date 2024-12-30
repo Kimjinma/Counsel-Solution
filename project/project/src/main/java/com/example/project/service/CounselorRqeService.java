@@ -1,8 +1,12 @@
 package com.example.project.service;
 
 import com.example.project.dto.CounselRequestDTO;
+import com.example.project.entity.CounselorEntity;
 import com.example.project.entity.RequestEntity;
+import com.example.project.entity.UserEntity;
+import com.example.project.repository.CounselorRepository;
 import com.example.project.repository.RequestRepository;
+import com.example.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,10 @@ import java.util.stream.Collectors;
 public class CounselorRqeService {
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    CounselorRepository counselorRepository;
 
     public List<CounselRequestDTO> getRequestsByEmpNo(String empNo) {
         List<RequestEntity> entities = requestRepository.findByEmp_EmpNo(empNo);
@@ -23,6 +31,10 @@ public class CounselorRqeService {
     private CounselRequestDTO convertToDTO(RequestEntity entity) {
         CounselRequestDTO dto = new CounselRequestDTO();
         dto.setCnsNo(entity.getCnsNo());
+
+        // 디버깅 로그 추가
+        System.out.println("Mapped cnsNo: " + entity.getCnsNo());
+
         dto.setStudentNo(entity.getStudentNo() != null ? entity.getStudentNo().getStudentNo() : null);
         dto.setEmpNo(entity.getEmp() != null ? entity.getEmp().getEmpNo() : null);
         dto.setSchedNo(entity.getSchedNo());
@@ -37,18 +49,30 @@ public class CounselorRqeService {
         dto.setApplyCount(entity.getApplyCount());
         return dto;
     }
-    public boolean updateReservationStatus(Integer cnsNo, String applyYn, String scheduleYn) {
-        // 예약 엔티티 조회
-        RequestEntity reservation = requestRepository.findById(cnsNo).orElse(null);
 
+    public boolean updateReservationStatus(String username, Integer cnsNo, String applyYn, LocalDate scheduleStartDate) {
+        // 1. 사용자 엔티티 조회
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            throw new IllegalArgumentException("User not found with username: " + username);
+        }
+
+        // 2. 사용자 번호(userNo)를 통해 직원 번호(empNo) 조회
+        CounselorEntity empNo = counselorRepository.findByEmpNo(userEntity.getUserNo());
+        if (empNo == null) {
+            throw new IllegalArgumentException("Employee not found for userNo: " + userEntity.getUserNo());
+        }
+
+        // 3. 직원 번호(empNo)를 통해 상담 요청 조회
+        RequestEntity reservation = requestRepository.findByEmp_EmpNoAndCnsNo(empNo.getEmpNo(), cnsNo);
         if (reservation != null) {
             // 상태 및 일정 업데이트
             reservation.setApplyYn(applyYn); // "승인" 또는 "대기중"
-            reservation.setScheduleYn(scheduleYn); // 일정 시작일 업데이트
+            reservation.setScheduleStartDate(scheduleStartDate); // 일정 시작일 업데이트
             requestRepository.save(reservation); // 변경 사항 저장
             return true;
         }
 
-        return false; // 예약 엔티티가 없을 경우 실패 처리
+        return false; // 상담 요청을 찾을 수 없을 경우 실패 처리
     }
 }

@@ -37,6 +37,8 @@ public class SecurityConfig {
                         .requestMatchers("/mypage/counselorRequest/mymodal/**").hasAnyRole("ADMIN", "USER", "STUDENT")
                         .requestMatchers("/counselor/mypage/updateStatus").hasAnyRole("ADMIN", "COUNSELOR","STUDENT")
                         .requestMatchers("/counselor/mypage/updateStatus").authenticated()
+                        .requestMatchers("/co3").authenticated()
+
                         .requestMatchers("/favicon.ico").permitAll()
 
                 )
