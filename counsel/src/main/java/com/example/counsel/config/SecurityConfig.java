@@ -43,22 +43,22 @@ public class SecurityConfig {
         http
                 // URL 접근 권한 설정
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/join", "/joinProc","/advice-person", "/oauth2/**","/reset-password", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/login", "/join", "/joinProc","/counseling/advice/person", "/oauth2/**","/reset-password", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/").authenticated() // 메인 페이지는 인증된 사용자만 접근 가능
                         .anyRequest().authenticated()
                 )
 
                 // 일반 로그인 설정
                 .formLogin((auth) -> auth
-                        .loginPage("/login")              // 사용자 정의 로그인 페이지
-                        .loginProcessingUrl("/loginProc") // 로그인 처리 URL
+                        .loginPage("/auth/login")              // 사용자 정의 로그인 페이지
+                        .loginProcessingUrl("/auth/loginProc") // 로그인 처리 URL
                         .defaultSuccessUrl("/", true)     // 로그인 성공 시 메인 페이지로 이동
                         .permitAll()
                 )
 
                 // OAuth2 로그인 설정
                 .oauth2Login((oauth2) -> oauth2
-                        .loginPage("/login")  // 소셜 로그인 페이지
+                        .loginPage("/auth/login")  // 소셜 로그인 페이지
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService) // 사용자 서비스 설정
                         )
@@ -66,7 +66,7 @@ public class SecurityConfig {
 
                 // 로그아웃 설정
                 .logout((auth) -> auth
-                        .logoutUrl("/logout")
+                        .logoutUrl("/auth/logout")
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
