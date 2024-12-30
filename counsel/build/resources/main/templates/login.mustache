@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/loginProc.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- 헤더 -->
+<header>
+    <div>
+        <a href="#"><i class="fa-solid fa-house"></i> &nbsp; 마이페이지</a>
+        <a href="/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
+    </div>
+</header>
+
+<!-- 네비게이션 -->
+<nav>
+    <h1 onclick="window.location.href='/'">학생통합상담센터</h1>
+    <a href="/center">센터 소개</a>
+    <a href="/advice-person">개인 상담</a>
+    <a href="/program-peer">프로그램</a>
+    <a href="/community-notice">커뮤니티</a>
+</nav>
+
+<!-- 로그인 영역 -->
+<div class="login-wrapper">
+    <div class="login-container">
+        <form action="/loginProc" method="post" name="loginForm">
+            <!-- 아이디 입력 -->
+            <div class="input-container">
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" placeholder="id">
+            </div>
+            <!-- 비밀번호 입력 -->
+            <div class="input-container">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" placeholder="password">
+            </div>
+            <!-- 자동 로그인 -->
+            <div class="autologin-container">
+                <input type="checkbox" id="autologin" name="autologin">
+                <label for="autologin">자동 로그인</label>
+            </div>
+            <!-- 로그인 버튼 -->
+            <div class="login-button-container">
+                <button type="submit" class="login-button">로그인</button>
+            </div>
+            <div>
+                <hr>
+                <a href="/oauth2/authorization/naver">naver login</a><br>
+                <a href="/oauth2/authorization/google">google login</a>
+            </div>
+        </form>
+    </div>
+    <!-- 하단 버튼 -->
+    <div class="footer-container">
+        <button class="sub-button" onclick="window.location.href='/join'">회원가입</button>
+        <button class="sub-button" onclick="window.location.href='/reset-password'">비밀번호 찾기</button>
+    </div>
+</div>
+
+<!-- 푸터 -->
+<footer>
+    <p>
+        <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+    </p>
+</footer>
+</body>
+</html>
