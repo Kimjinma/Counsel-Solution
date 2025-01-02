@@ -17,10 +17,10 @@
         </div>
     </header>
     <nav>
-        <h1 onclick="window.location.href='main.mustache'">학생통합상담센터</h1>
-        <a href="#" onclick="window.location.href='center.html'">센터 소개</a>
-        <a href="#" onclick="window.location.href='advice-person.mustache'">개인 상담</a>
-        <a href="#" onclick="window.location.href='program-peer.html'">프로그램</a>
+        <h1 onclick="window.location.href='/'">학생통합상담센터</h1>
+        <a href="/counseling/center" onclick="window.location.href='center.mustache'">센터 소개</a>
+        <a href="/counseling/advice/person" onclick="window.location.href='advice-person.mustache'">개인 상담</a>
+        <a href="/counseling/program/group" onclick="window.location.href='program-group.mustache'">프로그램</a>
         <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
     </nav>
     <div class=" container-banner">
@@ -30,9 +30,9 @@
     <div class="container">
         <!-- 사이드바 버튼 -->
         <div class="sidebar">
-            <button href="#" class="sidebar-button" onclick="window.location.href='advice-person.mustache'">1:1 상담</button>
-            <button href="#" class="sidebar-button"  onclick="window.location.href='adivce-professor.html'">교수/학습 상담</button>
-            <button href="#" class="sidebar-button" onclick="window.location.href='adivce-job.html'">취업/진로 상담</button>
+            <button class="sidebar-button" onclick="window.location.href='/counseling/advice/person'">1:1 상담</button>
+            <button class="sidebar-button" onclick="window.location.href='/counseling/advice/professor'">교수/학습 상담</button>
+            <button class="sidebar-button" onclick="window.location.href='/counseling/advice/job'">취업/진로 상담</button>
         </div>
         <div class="title-container">
             <div class="home"> HOME 개인상담 > 1:1 상담</div>

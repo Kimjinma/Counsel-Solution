@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ProgramProgress {
+
     @Id
     @Column(name = "PRGRM_NO")
     private Long prgrmNo;

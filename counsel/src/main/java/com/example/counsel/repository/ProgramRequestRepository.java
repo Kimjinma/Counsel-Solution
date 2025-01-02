@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ProgramRequestRepository extends JpaRepository<ProgramRequest, Long> {
-    List<ProgramRequest> findByStudentNo(String studentNo); // 메소드 선언
+    List<ProgramRequest> findByStudentNo(String studentNo);
+
+    boolean existsByStudentNoAndProgramNo(String studentNo, Long programNo);
 }
