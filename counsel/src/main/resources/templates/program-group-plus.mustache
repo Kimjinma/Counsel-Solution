@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 메인 홈페이지</title>
+    <link rel="stylesheet" href="/css/program-group-plus.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div>
+            <a href="/mypage"><i class="fa-solid fa-house"></i> &nbsp; 마이페이지</a>
+            <a href="#" onclick="window.location.href='login.html'"> <i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
+        </div>
+    </header>
+    <nav>
+        <h1 onclick="window.location.href='/'">학생통합상담센터</h1>
+        <a href="/counseling/center" onclick="window.location.href='center.mustache'">센터 소개</a>
+        <a href="/counseling/advice/person" onclick="window.location.href='advice-person.mustache'">개인 상담</a>
+        <a href="/counseling/program/group" onclick="window.location.href='program-group.mustache'">프로그램</a>
+        <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
+    </nav>
+    <div class="container-banner">
+        <img src="https://via.placeholder.com/1920x200" alt="1920x200 Placeholder 이미지">
+    </div>
+    <h2>프로그램</h2>
+    <div class="container">
+        <!-- 사이드바 버튼 -->
+        <div class="sidebar">
+            <button href="#" class="sidebar-button" onclick="window.location.href='program-peer.html'">또래 상담</button>
+            <button href="#" class="sidebar-button"  onclick="window.location.href='program-group.html'">집단 상담</button>
+        </div>
+        <div class="title-container">
+            <div class="home"> HOME 프로그램 > 집단 상담</div>
+            <div class="main-content">
+                <div class="board-item">
+                    <!-- 상단 헤더 -->
+                    <div class="header">
+                        <h1>학습법 특강(12월) - 환경통계</h1>
+                        <p>등록일: 2024.11.27 | 조회수: 622</p>
+                    </div>
+
+                    <!-- 이미지 섹션 -->
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/300" alt="게시물 이미지">
+                    </div>
+
+                    <!-- 세부 정보 -->
+                    <div class="details">
+                        <div class="details-row">
+                            <strong>신청 접수:</strong> 2024.12.01 ~ 2024.12.31  |
+                            <strong>참여 대상:</strong> 전체 재학생  |
+                            <strong>일정 및 장소:</strong> 온라인 강의
+                        </div>
+                        <div class="details-row">
+                            <strong>신청 문의:</strong> 033-760-1407  |
+                            <strong>현재 신청자 수:</strong> 84명  |
+                            <strong>운영 기관:</strong> 교육학습지원센터
+                        </div>
+                    </div>
+
+                    <!-- 설명 섹션 -->
+                    <div class="description">
+                        이번 특강은 환경 통계를 주제로 진행되며, 실제 사례를 기반으로 한 통계 활용법을 중심으로 구성되어 있습니다.
+                        강의는 재학생들에게 통계 지식을 쉽게 전달하고, 이를 실생활이나 학업에 활용할 수 있도록 돕는 데 초점을 맞추고 있습니다.
+                        특히, 친숙한 사례(예: 마시멜로 테스트)를 활용해 데이터 분석의 중요성을 강조하며, 통계를 학습하는 데 있어
+                        유익하고 실용적인 정보를 제공합니다.
+                    </div>
+
+                    <!-- 액션 버튼 -->
+                    <div class="actions">
+                        <a href="#" class="apply-btn">신청하기</a>
+                        <a href="program-group.html" class="back-btn">목록으로 돌아가기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>
+        <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+    </p>
+</footer>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.counsel.controller;
 
 import com.example.counsel.dto.AdviceRequest;
+import com.example.counsel.dto.ProgramApplyRequest;
 import com.example.counsel.entity.ProgramRequest;
 import com.example.counsel.service.AdviceService;
 import com.example.counsel.service.ProgramService;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 import java.util.Map;
 
-// 2. CounselingController - 상담/프로그램 관련 통합
 @Controller
 @RequestMapping("/counseling")
 public class CounselingController {
@@ -29,9 +29,24 @@ public class CounselingController {
     }
 
     // 페이지 매핑
+    @GetMapping("/center")
+    public String centerPage() {
+        return "center";
+    }
+
     @GetMapping("/advice/person")
     public String advicePersonPage() {
         return "advice-person";
+    }
+
+    @GetMapping("/advice/professor")
+    public String adviceProfessorPage() {
+        return "advice-professor"; // 교수/학습 상담 페이지
+    }
+
+    @GetMapping("/advice/job")
+    public String adviceJobPage() {
+        return "advice-job"; // 취업/진로 상담 페이지
     }
 
     @GetMapping("/program/group")
@@ -39,9 +54,9 @@ public class CounselingController {
         return "program-group";
     }
 
-    @GetMapping("/program/peer")
-    public String programPeerPage() {
-        return "program-peer";
+    @GetMapping("/program/group-plus")
+    public String programGroupPlusPage() {
+        return "program-group-plus";
     }
 
     // API 엔드포인트
@@ -63,9 +78,10 @@ public class CounselingController {
 
     // 프로그램 신청 처리
     @PostMapping("/api/program/apply")
-    public ResponseEntity<Map<String, Object>> applyProgram(@RequestBody ProgramRequest request) {
+    public ResponseEntity<Map<String, Object>> applyForProgram(@RequestBody ProgramApplyRequest request) {
         Map<String, Object> response = new HashMap<>();
-        boolean isApplied = programService.applyProgram(request);
+
+        boolean isApplied = programService.applyForProgram(request); // 메서드 호출 수정
 
         if (isApplied) {
             response.put("status", "success");

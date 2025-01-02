@@ -60,7 +60,7 @@ public class AuthController {
         return "reset-password";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/auth/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null) {

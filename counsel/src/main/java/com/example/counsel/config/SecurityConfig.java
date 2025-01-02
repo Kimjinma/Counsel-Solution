@@ -43,8 +43,11 @@ public class SecurityConfig {
         http
                 // URL 접근 권한 설정
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/join", "/joinProc","/counseling/advice/person", "/oauth2/**","/reset-password", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/auth/login", "/auth/join", ".auth/joinProc","/counseling/advice/person","/counseling/advice/professor ","/counseling/advice/job",
+                                "/oauth2/**","/auth/reset-password", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/").authenticated() // 메인 페이지는 인증된 사용자만 접근 가능
+                        .requestMatchers("/counselor").hasAnyRole("B","C")
+                        .requestMatchers("/admin").hasAnyRole("C")
                         .anyRequest().authenticated()
                 )
 
@@ -72,7 +75,7 @@ public class SecurityConfig {
                 )
 
                 // CSRF 비활성화
-                .csrf((auth) -> auth.disable())
+                //.csrf((auth) -> auth.disable())
 
                 // HTTP Basic 비활성화
                 .httpBasic(Customizer.withDefaults())

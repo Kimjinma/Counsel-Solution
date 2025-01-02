@@ -230,46 +230,75 @@ tr:last-child td {
     border-bottom: 1px solid rgba(7, 114, 255, 0.87);; /* 아래쪽 테두리 파란색 */
 }
 
+/**/
 .board-item {
-    display: grid;
-    grid-template-columns: 150px 1fr 150px;
-    grid-gap: 20px;
-    padding: 15px;
-    border-bottom: 1px solid #e0e0e0;
+
+    width: 100%;
+    max-width: 1600px;
+    margin: 30px auto;
+    background: #fff;
+
+    overflow: hidden;
 }
-.board-item:last-child {
-    border-bottom: none;
+.header {
+    background-color: #f9f9f9;
+    color: black;
+    text-align: center; /* 텍스트를 중앙 정렬 */
+    padding: 20px;
+    display: flex; /* flexbox 사용 */
+    flex-direction: column; /* 세로 방향 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
 }
-.board-item img {
-    width: 150px;
-    height: 150px;
+
+.header h1 {
+    font-size: 1.8em;
+    margin: 0; /* 여백 제거 */
+    line-height: 1.5; /* 텍스트 간격 조정 */
+}
+
+.header p {
+    font-size: 0.9em;
+    margin: 5px 0 0 0; /* 위쪽 여백만 설정 */
+}
+.image-container {
+    text-align: center;
+    padding: 120px;
+}
+.image-container img {
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
     border-radius: 8px;
 }
-.board-item .details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.details {
+    padding: 20px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.95em;
+    color: #333;
+    line-height: 1.6em;
 }
-.board-item .details p {
-    margin: 5px 0;
+.details-row {
+    margin-bottom: 10px;
+}
+.description {
+    padding: 20px;
     font-size: 0.95em;
     color: #555;
+    line-height: 1.6em;
 }
-.board-item .details .title {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #222;
-}
-.board-item .meta {
+.actions {
     text-align: center;
-    font-size: 0.85em;
-    color: #888;
+    padding: 120px;
+    border-top: 1px solid #e0e0e0;
+
 }
-.apply-btn {
+.apply-btn, .back-btn {
     display: inline-block;
     text-align: center;
-    padding: 10px 15px;
+    padding: 10px 20px;
+    margin: 5px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -281,35 +310,12 @@ tr:last-child td {
 .apply-btn:hover {
     background-color: #0056b3;
 }
-
-.pagination {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
+.back-btn {
+    background-color: #6c757d;
 }
-
-.page-button {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    border-radius: 3px;
-    font-size: 14px;
-    cursor: pointer;
+.back-btn:hover {
+    background-color: #5a6268;
 }
-
-.page-button:hover {
-    background-color: #ddd;
-}
-
-.page-button.active {
-    background-color: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
-}
-
 /* 푸터 */
 footer {
     background: #333;
@@ -333,8 +339,16 @@ footer a:hover {
 @media (max-width: 768px) {
     .container {
         flex-direction: column; /* 세로 방향으로 쌓이도록 변경 */
+        width: 95%;
+        margin: 20px auto;
     }
 
+    .header h1 {
+        font-size: 1.5em;
+    }
+    .details {
+        font-size: 0.9em;
+    }
     .sidebar {
         width: 100%; /* 사이드바 너비를 100%로 설정 */
     }

@@ -22,19 +22,19 @@ function submitSurvey() {
             questionItemId: 1,
             questionTypeCode: "MUL", // 객관식 코드를 "MUL"로 변경
             answerId: parseInt(option1.value),
-            studentNo: "현재 로그인된 학생 번호"
+            studentNo: "201932001"
         },
         {
             questionItemId: 2,
             questionTypeCode: "MUL",
             answerId: parseInt(option2.value),
-            studentNo: "현재 로그인된 학생 번호"
+            studentNo: "201932001"
         },
         {
             questionItemId: 3,
             questionTypeCode: "MUL",
             answerId: parseInt(option3.value),
-            studentNo: "현재 로그인된 학생 번호"
+            studentNo: "201932001"
         }
     ];
 

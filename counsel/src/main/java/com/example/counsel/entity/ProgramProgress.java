@@ -6,13 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "PRGRM_PRGRS")
 @Getter
 @Setter
 public class ProgramProgress {
+
     @Id
     @Column(name = "PRGRM_NO")
     private Long prgrmNo;
@@ -31,4 +32,22 @@ public class ProgramProgress {
 
     @Column(name = "ENGAGE_YN")
     private String engageYn;
+
+    public static List<ProgramProgress> findByStudentNo(String studentNo) {
+
+        return List.of();
+    }
+
+    public static boolean existsByStudentNoAndProgramNo(String studentNo, Long programNo) {
+        return false;
+    }
+
+    public static void save(ProgramProgress programProgress) {
+    }
+
+    public void setStudentNo(String studentNo) {
+    }
+
+    public void setProgramNo(Long programNo) {
+    }
 }

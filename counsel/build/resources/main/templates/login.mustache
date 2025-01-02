@@ -11,7 +11,7 @@
 <!-- 헤더 -->
 <header>
     <div>
-        <a href="#"><i class="fa-solid fa-house"></i> &nbsp; 마이페이지</a>
+        <a href="/mypage"><i class="fa-solid fa-house"></i> &nbsp; 마이페이지</a>
         <a href="/auth/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
     </div>
 </header>
@@ -46,6 +46,7 @@
             </div>
             <!-- 로그인 버튼 -->
             <div class="login-button-container">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
                 <button type="submit" class="login-button">로그인</button>
             </div>
             <div>
@@ -57,8 +58,8 @@
     </div>
     <!-- 하단 버튼 -->
     <div class="footer-container">
-        <button class="sub-button" onclick="window.location.href='/join'">회원가입</button>
-        <button class="sub-button" onclick="window.location.href='/reset-password'">비밀번호 찾기</button>
+        <button class="sub-button" onclick="window.location.href='/auth/join'">회원가입</button>
+        <button class="sub-button" onclick="window.location.href='/auth/reset-password'">비밀번호 찾기</button>
     </div>
 </div>
 

@@ -1,6 +1,5 @@
 package com.example.counsel.entity;
 
-
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -21,6 +21,9 @@ public class SurveyController {
 
     @PostMapping("/submit")
     public ResponseEntity<ApiResponse<Void>> submitSurvey(@RequestBody List<SurveyResultRequest> surveyResults) {
+        if (surveyResults.isEmpty()) {
+            return ResponseEntity.badRequest().body(new ApiResponse<>("설문 데이터가 비어 있습니다."));
+        }
         try {
             surveyService.saveSurveyResults(surveyResults);
             return ResponseEntity.ok(new ApiResponse<>("설문조사가 성공적으로 저장되었습니다!"));
@@ -28,6 +31,7 @@ public class SurveyController {
             return ResponseEntity.badRequest().body(new ApiResponse<>("저장 실패: " + e.getMessage()));
         }
     }
+
 
     @Controller
     @RequestMapping("/survey")

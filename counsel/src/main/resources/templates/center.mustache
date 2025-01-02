@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 메인 홈페이지</title>
+    <link rel="stylesheet" href="/css/center.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header>
+        <div>
+            <a href="/mypage"><i class="fa-solid fa-house"></i> &nbsp; 마이페이지</a>
+            <a href="#" onclick="window.location.href='login.html'"> <i class="fa-solid fa-arrow-right-to-bracket"></i> &nbsp; 로그인</a>
+        </div>
+    </header>
+    <nav>
+        <h1 onclick="window.location.href='/'">학생통합상담센터</h1>
+        <a href="/counseling/center" onclick="window.location.href='center.mustache'">센터 소개</a>
+        <a href="/counseling/advice/person" onclick="window.location.href='advice-person.mustache'">개인 상담</a>
+        <a href="/counseling/program/group" onclick="window.location.href='program-group.mustache'">프로그램</a>
+        <a href="#" onclick="window.location.href='community-notice.html'">커뮤니티</a>
+    </nav>
+    <div class=" container-banner">
+        <img src="https://via.placeholder.com/1920x200" alt="1920x200 Placeholder 이미지">
+    </div>
+    <h2>센터 소개</h2>
+    <div class="container">
+        <!-- 사이드바 버튼 -->
+        <div class="sidebar">
+            <button class="sidebar-button" onclick="location.href='#intro'">센터 소개</button>
+        </div>
+        <div class="title-container">
+            <div class="home"> HOME 센터 > 소개</div>
+
+            <h1>학생생활상담센터</h1>
+            <div class="main-content">
+                <section id="intro">
+                    <h1>목표와 비전</h1>
+                    <p>
+                        학생생활상담센터는 학생들이 건강한 대학 생활을 누리며, <strong>자신만의 목표와 꿈</strong>을 이루어 나갈 수 있도록 심리적, 정서적 지원을 제공하는 공간입니다.
+                        <strong>“학생의 성장을 위한 동반자”</strong>라는 비전 아래, 학생 개개인의 삶의 질을 향상시키고 지속 가능한 성장을 돕는 것을 목표로 합니다.
+                    </p>
+
+                    <h1>우리가 하는 일</h1>
+                    <p>
+                        심리적 어려움과 생활 문제 해결을 위한 <strong>개인 상담</strong>, <strong>집단 프로그램</strong>, 심리 검사, 워크숍 등을 제공합니다.
+                        또한, 정기적인 캠페인과 이벤트를 통해 <strong>학생 간 유대감 형성</strong>과 <strong>공동체 의식 함양</strong>을 지원합니다.
+                        학생생활상담센터는 언제나 학생 곁에서 <strong>따뜻한 동반자</strong>가 되어줄 것을 약속합니다.
+                    </p>
+
+                    <h1>주요 행사 (2019-2022)</h1>
+                    <ul>
+                        <li><strong>2019</strong>: 새내기 적응 프로그램, 스트레스 관리 세미나</li>
+                        <li><strong>2020</strong>: 코로나 블루 극복 캠페인, 온라인 심리 상담</li>
+                        <li><strong>2021</strong>: 내 마음 알기 프로그램, 진로 탐색 워크숍</li>
+                        <li><strong>2022</strong>: 레벨업 프로그램, 내적 성장 세미나</li>
+                    </ul>
+
+                    <h1>운영진 소개</h1>
+                    <p>
+                        <strong>김은주 센터장</strong>: 운영 총괄 및 심리 안정 지원<br>
+                        <strong>이민정 대표</strong>: 상담 및 프로그램 기획<br>
+                        <strong>박지훈 상담사</strong>: 스트레스 관리, 진로 상담 전문<br>
+                        <strong>송하늘 상담사</strong>: 대인 관계 및 정서적 회복 전문
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>
+            <a href="#">개인정보처리방침</a> | ⓒ 2024 회사명. All rights reserved.
+        </p>
+    </footer>
+</div>
+</body>
+</html>

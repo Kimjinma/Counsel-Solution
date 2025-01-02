@@ -117,7 +117,7 @@ h2 {
     transition: background-color 0.3s;
 }
 
-.sidebar-button:nth-child(2){
+.sidebar-button:nth-child(3){
     border: 1px solid #0078d7;
     color : #0078d7;
     background-color: white;
@@ -230,85 +230,6 @@ tr:last-child td {
     border-bottom: 1px solid rgba(7, 114, 255, 0.87);; /* 아래쪽 테두리 파란색 */
 }
 
-.board-item {
-    display: grid;
-    grid-template-columns: 150px 1fr 150px;
-    grid-gap: 20px;
-    padding: 15px;
-    border-bottom: 1px solid #e0e0e0;
-}
-.board-item:last-child {
-    border-bottom: none;
-}
-.board-item img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-.board-item .details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.board-item .details p {
-    margin: 5px 0;
-    font-size: 0.95em;
-    color: #555;
-}
-.board-item .details .title {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #222;
-}
-.board-item .meta {
-    text-align: center;
-    font-size: 0.85em;
-    color: #888;
-}
-.apply-btn {
-    display: inline-block;
-    text-align: center;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9em;
-    text-decoration: none;
-    cursor: pointer;
-}
-.apply-btn:hover {
-    background-color: #0056b3;
-}
-
-.pagination {
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-
-.page-button {
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
-    border-radius: 3px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.page-button:hover {
-    background-color: #ddd;
-}
-
-.page-button.active {
-    background-color: #007bff;
-    color: #fff;
-    border: 1px solid #007bff;
-}
 
 /* 푸터 */
 footer {
