@@ -43,8 +43,13 @@ public class SecurityConfig {
         http
                 // URL 접근 권한 설정
                 .authorizeHttpRequests((auth) -> auth
+<<<<<<< HEAD
                         .requestMatchers("/auth/login", "/auth/join", ".auth/joinProc","/counseling/advice/person","/counseling/advice/professor ","/counseling/advice/job",
                                 "/oauth2/**","/auth/reset-password", "/css/**", "/js/**").permitAll()
+=======
+                        .requestMatchers("/login", "/join", "/joinProc","/counseling/advice/person","/counseling/advice/professor ","/counseling/advice/job",
+                                "/oauth2/**","/reset-password", "/css/**", "/js/**").permitAll()
+>>>>>>> d690af495b77a4f3cf383869fa9cb431ca2e7b13
                         .requestMatchers("/").authenticated() // 메인 페이지는 인증된 사용자만 접근 가능
                         .requestMatchers("/counselor").hasAnyRole("B","C")
                         .requestMatchers("/admin").hasAnyRole("C")
