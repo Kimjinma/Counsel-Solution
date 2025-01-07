@@ -1,41 +1,47 @@
 package com.example.project.entity;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
 @Table(name = "PRGRM_PRGRS")
-
 public class ProgramProEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ManyToOne
-    @JoinColumn(name = "PRGRM_NO", referencedColumnName = "PRGRM_NO")
-    private ProgramEntity program; // 프로그램번호 (외래 키)
+    @Column(name = "PRGRM_NO")
+    private Integer programNo;
+
+    @Column(name = "PRGRM_NM", length = 100)
+    private String programName;
 
 
 
     @Column(name = "APRV_YN", length = 1)
-    private char approvalStatus; // 승인 상태
+    private String approvalStatus;
 
     @Column(name = "RATING")
-    private int rating; // 프로그램 평가 점수
+    private Integer rating;
 
-    @Column(name = "APPLY_YN")
-    private String applyYn; // 신청여부
+    @Column(name = "APPLY_YN", length = 1)
+    private String applyStatus;
 
-    @Column(name = "ENGAGE_YN")
-    private int engageYn; // 참여여부
+    @Column(name = "ENGAGE_YN", length = 1)
+    private String engageStatus;
 
+    // Relationships
     @ManyToOne
-    @JoinColumn(name = "STDNT_NO", referencedColumnName = "STDNT_NO")
-    private StudentEntity student; // 학번 (외래 키)
+    @JoinColumn(name = "PRGRM_NM", insertable = false, updatable = false)
+    private ProgramEntity program;
+    @ManyToOne
+    @JoinColumn(name = "STDNT_NO", insertable = false, updatable = false)
+    private StudentEntity student;
 
-    // Getters, Setters, and Constructors
+
+    // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "EMP_NO", insertable = false, updatable = false)
+    private CounselorEntity emp;
 }
-
-

@@ -120,7 +120,12 @@
             document.getElementById(tabId + '-tab').classList.add('active');
             document.getElementById(tabId).classList.add('active');
 
-            const newUrl = tabId === 'profile' ? '/mypage/profile' : '/mypage/counselRequests';
+            const newUrl = tabId === 'profile'
+                ? '/mypage/profile'
+                : (tabId === 'requests'
+                    ? '/mypage/counselRequests'
+                    : '/mypage/studentlist'); // 프로그램 리스트 경로
+
             history.pushState(null, '', newUrl);
         }
 
@@ -181,6 +186,8 @@
 <div class="tabs">
     <div id="profile-tab" class="tab active" onclick="showTab('profile')">개인정보 수정</div>
     <div id="requests-tab" class="tab" onclick="showTab('requests')">상담 신청 정보</div>
+    <div id="program-tab" class="tab" onclick="showTab('program')">프로그램 정보</div>
+
 </div>
 
 <!-- 개인정보 수정 -->
@@ -308,6 +315,43 @@
         </div>
     </div>
 </div>
+
+
+<!-- 학생 프로그램정보  -->
+<div id="program" class="content">
+    <h2>프로그램 정보</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>프로그램 이름</th>
+            <th>장소</th>
+            <th>참여정원</th>
+            <th>등록일</th>
+            <th>진행상태</th>
+            <th>내용확인</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="program : ${programList}">
+
+            <td th:text="${program.programNumber}">No Program Number</td>
+            <td th:text="${program.programName}">No Program Name</td>
+            <td th:text="${program.eduplcnm}">No Location</td>
+            <td th:text="${program.plannope}">0</td>
+            <td th:text="${program.registrationDate}">No Date</td>
+            <td th:text="${program.approvalStatus}">No Date</td>
+
+
+        </tr>
+
+        </tbody>
+
+
+    </table>
+</div>
+
 </body>
 </html>
 

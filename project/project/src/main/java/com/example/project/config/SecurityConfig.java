@@ -42,7 +42,16 @@ public class SecurityConfig {
                         .requestMatchers("/mypage_co3.css", "/style.css", "/static/**", "/favicon.ico").permitAll() // 정적 파일 접근 허용
 
                         .requestMatchers("/favicon.ico").permitAll()
-
+                        .requestMatchers("/counselor/mypage/list").hasAnyRole("ADMIN", "COUNSELOR","STUDENT","USER")
+                        .requestMatchers("/counselor/mypage/program").hasAnyRole("ADMIN", "COUNSELOR","STUDENT","USER")
+                        .requestMatchers("/counselor/mypage/approveParticipant").hasAnyRole("ADMIN", "COUNSELOR","STUDENT","USER")
+                        .requestMatchers("/counselor/mypage/students").hasAnyRole("ADMIN", "COUNSELOR","STUDENT","USER")
+                        .requestMatchers("/counselor/mypage/program/{programNo}").hasAnyRole("ADMIN", "COUNSELOR","STUDENT","USER")
+                        .requestMatchers("/counselor/mypage/approveStudent").hasAnyRole("ADMIN", "COUNSELOR","USER","STUDENT")
+                        .requestMatchers("/counselor/mypage/cancelStudent").hasAnyRole("ADMIN", "COUNSELOR","USER","STUDENT")
+                        .requestMatchers("/counselor/mypage/participants").hasAnyRole("ADMIN", "COUNSELOR","USER","STUDENT")
+                        .requestMatchers("/mypage/studentlist").hasAnyRole("ADMIN", "COUNSELOR","USER","STUDENT")
+                        .requestMatchers("/mypage/program/details/**").hasAnyRole("ADMIN", "COUNSELOR","USER","STUDENT")
                 )
 
 

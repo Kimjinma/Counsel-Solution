@@ -1,11 +1,13 @@
 package com.example.project.controller;
 
 import com.example.project.dto.CounselRequestDTO;
+import com.example.project.dto.ProgramProDTO;
 import com.example.project.dto.UpdateUserDTO;
 import com.example.project.entity.RequestEntity;
 import com.example.project.service.CounselorManagementService;
 import com.example.project.service.CounselorRqeService;
 import com.example.project.service.CounselorService;
+import com.example.project.service.ProgramRqeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,8 @@ public class CounselorMyPageController {
     private CounselorManagementService counselorManagementService;
     @Autowired
     private CounselorRqeService requestService;
-
+    @Autowired
+    private ProgramRqeService programRqeService;
     // 상담사 마이페이지 조회 화면
     @GetMapping("/profile")
     public String myPageView(@AuthenticationPrincipal UserDetails userDetails, Model model) {
@@ -117,6 +120,7 @@ public class CounselorMyPageController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @GetMapping("/getContent")
     public ResponseEntity<List<Map<String, String>>> contentRequest(
             @AuthenticationPrincipal UserDetails userDetails,
@@ -149,4 +153,15 @@ public class CounselorMyPageController {
         }
     }
 
+    @GetMapping("/list")
+
+    public String getStudents(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String username = userDetails.getUsername();
+        String empNo = counselorManagementService.getStudentNoByLoginId(username);
+        List<ProgramProDTO> programList = programRqeService.getRequestsByEmpNo(empNo);
+
+        model.addAttribute("programList", programList);
+
+        return "counselormypage";
+    }
 }
