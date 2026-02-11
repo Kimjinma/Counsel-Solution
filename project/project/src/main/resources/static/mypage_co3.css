@@ -1,0 +1,135 @@
+#recordModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* 더 어두운 배경 */
+}
+
+#recordModal .modal-content {
+    background-color: #ffffff;
+    margin: 2% auto; /* 모달이 화면 중앙에 배치 */
+    padding: 40px;
+    border: 1px solid #ccc;
+    width: 70%; /* 가로 폭 줄임 */
+    max-width: 900px;
+    height: 90%; /* 세로 길이 확장 */
+    border-radius: 20px; /* 둥근 모서리 */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* 더 강한 그림자 */
+    text-align: center;
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 추가 */
+    animation: fadeIn 0.3s ease-in-out; /* 부드러운 등장 효과 */
+}
+
+#recordModal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd; /* 두꺼운 하단 경계 */
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+#recordModal .modal-header h2 {
+    margin: 0;
+    font-size: 28px; /* 제목 크기 적당히 */
+    color: #333;
+    font-weight: bold;
+}
+
+#recordModal .modal-header .close {
+    cursor: pointer;
+    font-size: 32px; /* 닫기 버튼 더 크게 */
+    font-weight: bold;
+    color: #888;
+    transition: color 0.3s ease;
+}
+
+#recordModal .modal-header .close:hover {
+    color: red; /* 닫기 버튼 호버 시 빨간색 */
+}
+
+#recordModal .modal-body {
+    margin-top: 20px;
+    text-align: left;
+    font-size: 18px; /* 기본 텍스트 */
+    line-height: 1.8; /* 줄 간격 넓게 */
+    color: #555;
+}
+
+#recordModal #recordList {
+    max-height: 300px; /* 리스트 높이 적당히 */
+    overflow-y: auto; /* 스크롤 가능 */
+    margin-bottom: 30px;
+    padding: 15px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
+}
+
+#recordModal #recordList .record-item {
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef; /* 밝은 경계선 */
+    font-size: 16px;
+    color: #333;
+}
+
+#recordModal #recordList .record-item:last-child {
+    border-bottom: none;
+}
+
+#recordModal .record-input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 입력 필드 간격 넓힘 */
+}
+
+#recordModal .record-input textarea {
+    width: 100%;
+    height: 300px; /* 상담 내용 입력칸 높이 확장 */
+    resize: none;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 18px; /* 입력 텍스트 크기 */
+    background-color: #f8f9fa;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1); /* 내부 그림자 */
+}
+
+#recordModal .record-input button {
+    padding: 15px 30px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px; /* 버튼 글자 크기 증가 */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#recordModal .record-input button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px); /* 버튼 호버 시 살짝 올라감 */
+}
+
+#recordModal .record-input button:active {
+    background-color: #004085;
+    transform: translateY(0); /* 원래 위치로 */
+}
+
+/* 부드러운 등장 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

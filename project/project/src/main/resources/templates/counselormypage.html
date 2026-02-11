@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>상담사 마이페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            background-color: #f9f9f9;
+        }
+
+        .tab.active {
+            background-color: white;
+            font-weight: bold;
+            border-top: 2px solid #007bff;
+            border-left: 2px solid #007bff;
+            border-right: 2px solid #007bff;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .modal .close {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .modal .close:hover {
+            color: red;
+        }
+
+        .calendar td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .calendar td.available {
+            background-color: #d4edda;
+        }
+
+        .calendar td.unavailable {
+            background-color: #f8d7da;
+            cursor: not-allowed;
+        }
+
+        .calendar td:hover {
+            background-color: #c3e6cb;
+        }
+    </style>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/mypage_co3.css">
+
+</head>
+<body>
+<h1>상담사 마이페이지</h1>
+<div class="tabs">
+    <div id="profile-tab" class="tab active" onclick="showTab('profile')">개인정보 수정</div>
+    <div id="requests-tab" class="tab" onclick="showTab('requests')">상담 신청 정보</div>
+    <div id="program-tab" class="tab" onclick="showTab('program')">프로그램 정보</div>
+</div>
+
+<!-- 개인정보 수정 -->
+<div id="profile" class="content active">
+    <h2>개인정보 수정</h2>
+    <form action="/counselor/mypage/update" method="POST">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter new password"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter email"><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter address"><br><br>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number"><br><br>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<!-- 상담 신청 정보 -->
+<div id="requests" class="content">
+    <h2>상담 신청 정보</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>상담 번호</th>
+            <th>학생 번호</th>
+            <th>상담 일시</th>
+            <th>상담 구분</th>
+            <th>신청일</th>
+            <th>예약 상태</th>
+            <th>상담 기록</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${counselRequests}">
+            <td th:text="${request.cnsNo}"></td>
+            <td th:text="${request.studentNo}"></td>
+            <td th:text="${request.scheduleStartDate}"></td>
+            <td th:text="${request.schedNo}"></td>
+            <td th:text="${request.counselingType}"></td>
+
+            <td>
+                <button th:if="${request.applyYn == '대기중'}"
+                        class="waiting-button"
+                        th:data-cns-no="${request.cnsNo}">대기중</button>
+
+                <span th:if="${request.applyYn == '승인'}"
+                      class="approved-status">승인</span>
+            </td>
+
+
+            <td>
+
+            <button class="record-button" th:data-cns-no="${request.cnsNo}">상담 기록 보기</button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 승인여부 모달 -->
+<div id="myModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="controls">
+                <button onclick="changeMonth(-1)">&#60;</button>
+                <span id="monthYear"></span>
+                <button onclick="changeMonth(1)">&#62;</button>
+            </div>
+        </div>
+        <table id="calendar">
+            <thead>
+            <tr>
+                <th>일</th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+                <th>토</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- JavaScript가 동적으로 날짜를 렌더링 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--상담기록 모달 -->
+<div id="recordModal" class="modal">
+<div class="modal-content">
+    <div class="modal-header">
+        <h2>상담 기록</h2>
+        <span class="close" onclick="closeRecordModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+        <div id="recordList">
+            <!-- 기존 상담 기록이 여기에 표시됩니다 -->
+        </div>
+        <div class="record-input">
+            <textarea id="newRecordContent" rows="4" placeholder="상담 내용을 입력하세요..."></textarea>
+            <button id="addRecordButton">기록 추가</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+<div id="program" class="content">
+    <h2>프로그램 정보</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>프로그램 번호</th>
+            <th>프로그램 이름</th>
+            <th>장소</th>
+            <th>최대 인원</th>
+            <th>등록일</th>
+            <th>신청자 현황</th>
+            <th>참여자 현황</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="program : ${programList}">
+            <td th:text="${program.programNumber}"></td> <!-- 프로그램 번호 -->
+            <td th:text="${program.programName}"></td> <!-- 프로그램명 -->
+            <td th:text="${program.eduplcnm}"></td> <!-- 진행 장소 -->
+            <td th:text="${program.plannope}"></td> <!-- 최대 인원 -->
+            <td th:text="${#temporals.format(program.registrationDate, 'yyyy-MM-dd')}"></td> <!-- 등록일 -->
+            <td>
+                <button class="participation-button" th:data-program-no="${program.programNumber}">신청자 현황</button>
+            </td>
+            <td>
+                <button class="applicant-button" th:data-program-no="${program.programNumber}">참여자 현황</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div id="participationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeParticipationModal()">&times;</span>
+        <h2>신청자 현황</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>학번</th>
+                <th>이름</th>
+                <th>승인 상태</th>
+                <th>승인 버튼</th>
+            </tr>
+            </thead>
+            <tbody id="participantList">
+            <tr th:each="student : ${studentList}">
+                <td th:text="${student.studentNo}">학번</td>
+                <td th:text="${student.name}">이름</td>
+                <td th:text="${student.approvalStatus == 'Y' ? '승인됨' : '미승인'}"></td>
+                <td>
+                    <span th:if="${student.approvalStatus == 'Y'}">이미 승인된 학생입니다</span>
+                    <button th:if="${student.approvalStatus != 'Y'}"
+                            class="approve-btn"
+                            th:data-student-no="${student.studentNo}" th:data-program-no="${student.programNumber}">
+                        승인
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 참여자 현황 모달 -->
+<div id="partModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeParticipantModal()">&times;</span>
+        <h2>참여자 현황</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>학번</th>
+                <th>이름</th>
+                <th>승인 상태</th>
+                <th>액션</th>
+            </tr>
+            </thead>
+            <tbody id="participantTable">
+            <tr th:each="participant : ${participantList}">
+                <td th:text="${participant.studentNo}">학번</td>
+                <td th:text="${participant.name}">이름</td>
+                <td th:text="${participant.approvalStatus == 'Y' ? '참여 승인됨' : '취소됨'}"></td>
+                <td>
+                    <!-- 승인 상태가 Y라면 취소 버튼 표시 -->
+                    <button th:if="${participant.approvalStatus == 'Y'}"
+                            class="cancel-btn"
+                            th:data-student-no="${participant.studentNo}"
+                            th:data-program-no="${participant.programNumber}">
+                        참여 취소
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function showTab(tabId) {
+        // 모든 탭의 active 클래스 제거
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+
+        // 선택된 탭과 내용 활성화
+        document.getElementById(tabId + '-tab').classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+
+        // URL 업데이트 (탭에 따라 변경)
+        const newUrl = tabId === 'profile'
+            ? '/counselor/mypage/profile'
+            : (tabId === 'requests'
+                ? '/counselor/mypage/counselRequests'
+                : '/counselor/mypage/list'); // 프로그램 리스트 경로
+        history.pushState(null, '', newUrl);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("myModal");
+        const calendarBody = document.querySelector("#calendar tbody");
+        const monthYear = document.getElementById("monthYear");
+
+        let currentDate = new Date();
+
+        // 모달 열기
+        document.querySelectorAll(".waiting-button").forEach(button => {
+            button.addEventListener("click", (event) => {
+                const cnsNo = event.target.dataset.cnsNo; // 상담 번호 가져오기
+                modal.dataset.cnsNo = cnsNo; // 모달에 상담 번호 저장
+                renderCalendar();
+                modal.style.display = "block"; // 모달 열기
+            });
+        });
+
+        // 모달 닫기
+        window.closeModal = function () {
+            modal.style.display = "none";
+        };
+
+        // 월 변경
+        window.changeMonth = function (direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+        };
+
+        // 달력 렌더링
+        function renderCalendar() {
+            calendarBody.innerHTML = ""; // 기존 내용을 비움
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+
+            // 월/연도 업데이트
+            monthYear.textContent = `${year}년 ${month + 1}월`;
+
+            // 첫 번째 날과 마지막 날
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            // 이전 달의 빈 칸 채우기
+            let row = document.createElement("tr");
+            for (let i = 0; i < firstDay; i++) {
+                row.appendChild(document.createElement("td"));
+            }
+
+            // 날짜 채우기
+            for (let day = 1; day <= lastDate; day++) {
+                if (row.children.length === 7) {
+                    calendarBody.appendChild(row);
+                    row = document.createElement("tr");
+                }
+
+                const cell = document.createElement("td");
+                cell.textContent = day;
+                cell.classList.add("available");
+                cell.addEventListener("click", () => handleDateClick(day));
+                row.appendChild(cell);
+            }
+
+            // 마지막 줄 추가
+            if (row.children.length > 0) {
+                calendarBody.appendChild(row);
+            }
+        }
+
+        // 날짜 클릭 이벤트
+        function handleDateClick(day) {
+            const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).toISOString().split("T")[0];
+            const cnsNo = modal.dataset.cnsNo; // 모달에서 상담 번호 가져오기
+
+            const confirmed = confirm(`${selectedDate} 날짜로 예약하시겠습니까?`);
+            if (confirmed) {
+                // 서버 요청
+                fetch("/counselor/mypage/updateStatus", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: new URLSearchParams({
+                        cnsNo: cnsNo,
+                        applyYn: "승인",
+                        scheduleStartDate: selectedDate
+                    })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("예약이 성공적으로 완료되었습니다.");
+                            closeModal(); // 모달 닫기
+                            updateTableRow(cnsNo, selectedDate); // 테이블 업데이트
+                        } else {
+                            alert("예약 처리에 실패했습니다.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("서버와의 통신 중 오류가 발생했습니다.");
+                    });
+            }
+        }
+
+        // 테이블 업데이트 함수
+        function updateTableRow(cnsNo, scheduleDate) {
+            const row = document.querySelector(`button[data-cns-no='${cnsNo}']`).closest("tr");
+            if (row) {
+                const statusCell = row.querySelector("td:nth-child(6)"); // 예약 상태 열
+                const dateCell = row.querySelector("td:nth-child(5)"); // 신청일 열
+
+                statusCell.textContent = "승인"; // 상태를 승인으로 변경
+                dateCell.textContent = scheduleDate; // 신청일 업데이트
+            }
+        }
+
+        // 초기 달력 렌더링
+        renderCalendar();
+    });
+
+
+
+// 상담기록 모달 자바스크립트
+    document.addEventListener("DOMContentLoaded", () => {
+        const recordModal = document.getElementById("recordModal");
+        const addRecordButton = document.getElementById("addRecordButton");
+        const newRecordContent = document.getElementById("newRecordContent");
+        const recordList = document.getElementById("recordList");
+
+        // 상담 기록 모달 열기
+        document.querySelectorAll(".record-button").forEach(button => {
+            button.addEventListener("click", (event) => {
+                const cnsNo = event.target.dataset.cnsNo;
+                recordModal.dataset.cnsNo = cnsNo; // 모달에 상담 번호 저장
+                fetchRecordContent(cnsNo); // 기존 상담 내용 로드
+                recordModal.style.display = "block"; // 모달 열기
+            });
+        });
+
+        // 상담 기록 모달 닫기
+        window.closeRecordModal = function () {
+            recordModal.style.display = "none";
+            newRecordContent.value = ""; // 입력 필드 초기화
+        };
+
+        // 상담 기록 로드 함수
+        function fetchRecordContent(cnsNo) {
+            fetch(`/counselor/mypage/getContent?cnsNo=${cnsNo}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch records");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Fetched data:", data); // 응답 데이터 확인
+                    recordList.innerHTML = ""; // 기존 기록 초기화
+                    if (!data || data.length === 0) {
+                        recordList.innerHTML = "<p>상담 기록이 없습니다.</p>";
+                        return;
+                    }
+                    data.forEach(record => {
+                        const recordItem = document.createElement("div");
+                        recordItem.textContent = `상담 번호: ${record.cnsNo}, 내용: ${record.content}`;
+                        recordList.appendChild(recordItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error loading records:", error);
+                    recordList.innerHTML = "<p>오류가 발생했습니다.</p>";
+                });
+        }
+
+
+        // 상담 기록 추가 함수
+        addRecordButton.addEventListener("click", () => {
+            const cnsNo = recordModal.dataset.cnsNo;
+            const content = newRecordContent.value.trim();
+
+            if (!content) {
+                alert("내용을 입력하세요.");
+                return;
+            }
+
+            fetch("/counselor/mypage/updateContent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    cnsNo: cnsNo,
+                    counselingContent: content,
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("상담 기록이 성공적으로 업데이트되었습니다.");
+                        fetchRecordContent(cnsNo); // 업데이트된 내용 로드
+                        newRecordContent.value = ""; // 입력 필드 초기화
+                    } else {
+                        alert("상담 기록 업데이트에 실패했습니다.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error updating record:", error);
+                    alert("서버와의 통신 중 오류가 발생했습니다.");
+                });
+        });
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const participantList = document.getElementById("participantList");
+        const participationModal = document.getElementById("participationModal");
+
+        // 신청자현황 버튼 클릭 이벤트 등록
+        document.querySelectorAll(".participation-button").forEach(button => {
+            button.addEventListener("click", () => {
+                const programNo = button.getAttribute("data-program-no");
+                fetchParticipantData(programNo); // 데이터 가져오기
+                openParticipationModal(); // 모달 열기
+            });
+        });
+        document.querySelectorAll(".applicant-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                const programNo = button.getAttribute("data-program-no");
+                fetchParticipantData(programNo); // 참여자 데이터 가져오기
+                openParticipantModal(); // 참여자 현황 모달 열기
+            });
+        });
+        // 신청 학생 리스트 가져오기
+        function fetchParticipantData(programNo) {
+            fetch(`/counselor/mypage/students?programNo=${programNo}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("participantList").innerHTML = html;
+                })
+                .catch(error => console.error("Error fetching participants:", error));
+        }
+
+
+
+        // 모달 열기
+        function openParticipationModal() {
+            const participationModal = document.getElementById("participationModal");
+            participationModal.style.display = "block";
+        }
+
+        // 모달 닫기
+        window.closeParticipationModal = function () {
+            const participationModal = document.getElementById("participationModal");
+            participationModal.style.display = "none";
+        };
+    });
+
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("participationModal");
+
+        // 승인 버튼 이벤트 처리
+        document.getElementById("participantList").addEventListener("click", (event) => {
+            if (event.target.classList.contains("approve-btn")) {
+                const studentNo = event.target.getAttribute("data-student-no");
+                const programNo = event.target.getAttribute("data-program-no");
+
+                // POST 요청으로 승인 처리
+                approveStudent(studentNo, programNo, event.target);
+            }
+        });
+
+        // 승인 처리 요청 함수
+        function approveStudent(studentNo, programNo, button) {
+            if (!studentNo || !programNo) {
+                alert("올바른 데이터를 입력하세요.");
+                return;
+            }
+
+            fetch("/counselor/mypage/approveStudent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    studentNo: studentNo,
+                    programNo: programNo,
+                }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert("승인이 완료되었습니다.");
+                        // 상태 업데이트
+                        const row = button.closest("tr");
+                        row.querySelector("td:nth-child(3)").textContent = "승인됨"; // 승인 상태 업데이트
+                        row.querySelector("td:nth-child(4)").innerHTML = "이미 승인된 학생입니다"; // 버튼 상태 변경
+                    } else {
+                        alert("승인 중 오류가 발생했습니다.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("승인 요청 오류:", error);
+                    alert("승인 요청 중 오류가 발생했습니다.");
+                });
+        }
+
+        // 모달 열기
+        function openParticipationModal() {
+            participationModal.style.display = "block";
+        }
+
+        // 모달 닫기
+        window.closeParticipationModal = function () {
+            participationModal.style.display = "none";
+        };
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const participantModal = document.getElementById("partModal");
+
+        // 참여자 현황 버튼 클릭 이벤트
+        document.querySelectorAll(".applicant-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                const programNo = button.getAttribute("data-program-no");
+                fetchParticipantData(programNo); // 참여자 데이터 가져오기
+                openParticipantModal(); // 모달 열기
+            });
+        });
+
+        // 참여자 데이터 가져오기 함수
+        function fetchParticipantData(programNo) {
+            fetch(`/counselor/mypage/participants?programNo=${programNo}`)
+                .then((response) => response.text())
+                .then((html) => {
+                    document.getElementById("participantTable").innerHTML = html; // 테이블 업데이트
+                })
+                .catch((error) => {
+                    console.error("참여자 데이터 로드 오류:", error);
+                    alert("참여자 데이터를 가져오는 중 오류가 발생했습니다.");
+                });
+        }
+
+        // 참여 취소 버튼 이벤트 처리
+        document.getElementById("participantTable").addEventListener("click", (event) => {
+            const button = event.target;
+            if (button.classList.contains("cancel-btn")) {
+                const studentNo = button.getAttribute("data-student-no");
+                const programNo = button.getAttribute("data-program-no");
+                handleCancel(studentNo, programNo, button); // 취소 처리
+            }
+        });
+
+        // 참여 취소 처리 함수
+        function handleCancel(studentNo, programNo, button) {
+            if (!studentNo || !programNo) {
+                alert("올바른 데이터를 입력하세요.");
+                return;
+            }
+
+            fetch("/counselor/mypage/cancelStudent", { // 올바른 취소 엔드포인트
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({
+                    studentNo: studentNo,
+                    programNo: programNo,
+                }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert("참여 취소가 완료되었습니다.");
+                        const row = button.closest("tr");
+                        row.querySelector("td:nth-child(3)").textContent = "취소됨"; // 상태 변경
+                        button.parentElement.innerHTML = ""; // 버튼 제거
+                    } else {
+                        alert("참여 취소 중 오류가 발생했습니다.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("참여 취소 요청 오류:", error);
+                    alert("참여 취소 요청 중 오류가 발생했습니다.");
+                });
+        }
+
+        // 모달 열기
+        function openParticipantModal() {
+            participantModal.style.display = "block";
+        }
+
+        // 모달 닫기
+        window.closeParticipantModal = function () {
+            participantModal.style.display = "none";
+        };
+    });
+
+</script>
+</body>
+</html>

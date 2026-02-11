@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>상담 신청 정보</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<h1>상담 신청 정보</h1>
+<table>
+  <thead>
+  <tr>
+    <th>번호</th>
+    <th>상담(예약일시)</th>
+    <th>상담구분</th>
+    <th>상담사</th>
+    <th>신청일</th>
+    <th>진행상태</th>
+    <th>만족도조사</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="request : ${counselRequests}">
+    <td th:text="${request.counselNo}"></td>
+    <td th:text="${request.scheduleDate}"></td>
+    <td th:text="${request.type}"></td>
+    <td th:text="${request.counselorName}"></td>
+    <td th:text="${request.applicationDate}"></td>
+    <td th:text="${request.status}"></td>
+    <td th:text="${request.satisfactionSurvey}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

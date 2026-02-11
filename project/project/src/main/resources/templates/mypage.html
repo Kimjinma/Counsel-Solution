@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>마이페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            background-color: #f9f9f9;
+        }
+
+        .tab.active {
+            background-color: white;
+            font-weight: bold;
+            border-top: 2px solid #007bff;
+            border-left: 2px solid #007bff;
+            border-right: 2px solid #007bff;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .modal-content h3 {
+            text-align: center;
+        }
+
+        .modal-content .input-form {
+            margin-bottom: 20px;
+        }
+
+        .modal-content .radio label {
+            margin-right: 10px;
+        }
+
+        .modal-content button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+            resize: vertical;
+            overflow-y: auto;
+        }
+    </style>
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+
+            document.getElementById(tabId + '-tab').classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            const newUrl = tabId === 'profile'
+                ? '/mypage/profile'
+                : (tabId === 'requests'
+                    ? '/mypage/counselRequests'
+                    : '/mypage/studentlist'); // 프로그램 리스트 경로
+
+            history.pushState(null, '', newUrl);
+        }
+
+        function openModal() {
+            document.getElementById('myModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+
+        function submitSurvey() {
+            // 사용자가 입력한 상담 번호 가져오기
+            const counselorNo = document.getElementById('cnsNo').value;
+            if (!counselorNo) {
+                alert("상담 번호를 입력해주세요.");
+                return;
+            }
+
+            // 설문 데이터 수집
+            const data = {
+                counselorNo: counselorNo,
+                question1: document.querySelector('input[name="q1"]:checked')?.value || 0,
+                question2: document.querySelector('input[name="q2"]:checked')?.value || 0,
+                question3: document.querySelector('input[name="q3"]:checked')?.value || 0,
+                question4: document.getElementById('question4').value || '',
+                question5: document.getElementById('question5').value || '',
+                question6: document.getElementById('question6').value || ''
+            };
+
+            // 서버로 데이터 전송
+            fetch(`/mypage/counselorRequest/mymodal/mymodalupdate/${counselorNo}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("설문조사가 성공적으로 제출되었습니다.");
+                        closeModal(); // 모달 닫기
+                    } else {
+                        response.text().then(text => alert("에러 발생: " + text));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("서버와의 통신 중 문제가 발생했습니다.");
+                });
+        }
+
+    </script>
+</head>
+<body>
+<h1>마이페이지</h1>
+<div class="tabs">
+    <div id="profile-tab" class="tab active" onclick="showTab('profile')">개인정보 수정</div>
+    <div id="requests-tab" class="tab" onclick="showTab('requests')">상담 신청 정보</div>
+    <div id="program-tab" class="tab" onclick="showTab('program')">프로그램 정보</div>
+
+</div>
+
+<!-- 개인정보 수정 -->
+<div id="profile" class="content active">
+    <h2>개인정보 수정</h2>
+    <form action="/mypage/update" method="POST">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter new password"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter email"><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter address"><br><br>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number"><br><br>
+
+        <button type="submit">Update</button>
+    </form>
+</div>
+
+<!-- 상담 신청 정보 -->
+<div id="requests" class="content">
+    <h2>상담 신청 정보</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>상담 번호</th>
+            <th>학생 번호</th>
+            <th>직원 번호</th>
+            <th>일정 번호</th>
+            <th>진행 상태</th>
+            <th>일정 시작일</th>
+            <th>일정 종료일</th>
+            <th>일정 여부</th>
+            <th>상담 유형</th>
+            <th>상담 사유</th>
+            <th>상담 내용</th>
+            <th>신청 여부</th>
+            <th>신청 횟수</th>
+            <th>만족도 조사</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${counselRequests}">
+            <td th:text="${request.cnsNo}"></td>
+            <td th:text="${request.studentNo}"></td>
+            <td th:text="${request.empNo}"></td>
+            <td th:text="${request.schedNo}"></td>
+            <td th:text="${request.counselingProgress}"></td>
+            <td th:text="${request.scheduleStartDate}"></td>
+            <td th:text="${request.scheduleEndDate}"></td>
+            <td th:text="${request.scheduleYn}"></td>
+            <td th:text="${request.counselingType}"></td>
+            <td th:text="${request.counselingReason}"></td>
+            <td th:text="${request.counselingContent}"></td>
+            <td th:text="${request.applyYn}"></td>
+            <td th:text="${request.applyCount}"></td>
+            <td><button onclick="openModal()">만족도 조사</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 모달 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <h3>[학생통합상담센터] 학생만족도 조사</h3>
+        <div class="modal-header">
+            <a>
+                다음은 학생통합상담센터 이용 만족도에 대한 설문입니다. 차후 상담실 운영을 위한 소중한 자료로 활용되오니 솔직하게 응답해주시면 감사하겠습니다.
+            </a>
+            <div class="input-form">
+                <p>상담 번호를 입력하세요:</p>
+                <input type="text" id="cnsNo" placeholder="상담 번호를 입력해주세요" />
+            </div>
+
+            <div class="input-form">
+                <p>1. 센터 이용에 대하여 만족하십니까?</p>
+                <div class="radio">
+                    <label><input type="radio" name="q1" value="1"> 매우 불만족 </label>
+                    <label><input type="radio" name="q1" value="2"> 불만족</label>
+                    <label><input type="radio" name="q1" value="3"> 보통</label>
+                    <label><input type="radio" name="q1" value="4"> 만족</label>
+                    <label><input type="radio" name="q1" value="5"> 매우 만족</label>
+                </div>
+            </div>
+            <div class="input-form">
+                <p>2. 센터 이용시간에 대하여 만족하십니까?</p>
+                <div class="radio">
+                    <label><input type="radio" name="q2" value="1"> 매우 불만족 </label>
+                    <label><input type="radio" name="q2" value="2"> 불만족</label>
+                    <label><input type="radio" name="q2" value="3"> 보통</label>
+                    <label><input type="radio" name="q2" value="4"> 만족</label>
+                    <label><input type="radio" name="q2" value="5"> 매우 만족</label>
+                </div>
+            </div>
+            <div class="input-form">
+                <p>3. 센터 분위기와 장소에 대해 만족하십니까?</p>
+                <div class="radio">
+                    <label><input type="radio" name="q3" value="1"> 매우 불만족 </label>
+                    <label><input type="radio" name="q3" value="2"> 불만족</label>
+                    <label><input type="radio" name="q3" value="3"> 보통</label>
+                    <label><input type="radio" name="q3" value="4"> 만족</label>
+                    <label><input type="radio" name="q3" value="5"> 매우 만족</label>
+                </div>
+            </div>
+            <div class="input-form">
+                <p>4. 주관식 답변을 작성해주세요:</p>
+                <textarea id="question4" rows="5"></textarea>
+            </div>
+            <div class="input-form">
+                <p>5. 좀 더 개선해야 할 점이나 바라는 점이 있다면 무엇입니까?</p>
+                <textarea id="question5" rows="5"></textarea>
+            </div>
+            <div class="input-form">
+                <p>6. 좀 더 개선해야 할 점이나 바라는 점이 있다면 무엇입니까?</p>
+                <textarea id="question6" rows="6"></textarea>
+            </div>
+        </div>
+        <div>
+            <button onclick="submitSurvey()">제출하기</button>
+            <button onclick="closeModal()">닫기</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- 학생 프로그램정보  -->
+<div id="program" class="content">
+    <h2>프로그램 정보</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>프로그램 이름</th>
+            <th>장소</th>
+            <th>참여정원</th>
+            <th>등록일</th>
+            <th>진행상태</th>
+            <th>내용확인</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="program : ${programList}">
+
+            <td th:text="${program.programNumber}">No Program Number</td>
+            <td th:text="${program.programName}">No Program Name</td>
+            <td th:text="${program.eduplcnm}">No Location</td>
+            <td th:text="${program.plannope}">0</td>
+            <td th:text="${program.registrationDate}">No Date</td>
+            <td th:text="${program.approvalStatus}">No Date</td>
+
+
+        </tr>
+
+        </tbody>
+
+
+    </table>
+</div>
+
+</body>
+</html>
+
