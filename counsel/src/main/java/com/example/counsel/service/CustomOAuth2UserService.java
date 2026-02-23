@@ -10,12 +10,14 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
-    //DefaultOAuth2UserService OAuth2UserService의 구현체
-
+    // DefaultOAuth2UserService OAuth2UserService의 구현체
 
     private final UserRepository userRepository;
 
@@ -28,7 +30,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
-        System.out.println(oAuth2User.getAttributes());
+        log.info("OAuth2 User Attributes: {}", oAuth2User.getAttributes());
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
@@ -39,11 +41,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
         } else {
-
-            return null;
+            throw new OAuth2AuthenticationException(new OAuth2Error("unsupported_provider"),
+                    "Unsupported OAuth2 provider");
         }
 
-        String username = oAuth2Response.getProvider()+" " + oAuth2Response.getProviderId();
+        String username = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
 
         UserEntity existData = userRepository.findByUsername(username);
 
@@ -53,13 +55,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             UserEntity userEntity = new UserEntity();
 
             userEntity.setUsername(username);
-            userEntity.setEmail(oAuth2Response.getProviderId());
+            userEntity.setEmail(oAuth2Response.getEmail());
             userEntity.setRole("ROLE_USER");
 
             userRepository.save(userEntity);
 
-        }
-        else {
+        } else {
 
             role = existData.getRole();
 
@@ -67,8 +68,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             userRepository.save(existData);
         }
-
-
 
         return new CustomOAuth2User(oAuth2Response, role);
     }

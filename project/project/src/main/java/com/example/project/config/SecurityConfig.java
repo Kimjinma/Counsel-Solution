@@ -76,7 +76,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // 평문 비밀번호 사용 (테스트용, 보안 취약)
+        // 평문 비밀번호 사용
         return NoOpPasswordEncoder.getInstance();
     }
 

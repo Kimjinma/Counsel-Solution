@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class JoinService {
@@ -21,10 +23,13 @@ public class JoinService {
         }
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserNo("U" + System.currentTimeMillis());
+        userEntity.setUserNo("U_" + UUID.randomUUID().toString().substring(0, 8)); // UUID를 활용하여 안전한 고유번호 생성
         userEntity.setUserSe("USER"); // 기본 사용자 권한
         userEntity.setUsername(joinDTO.getUsername());
-        userEntity.setPassword(joinDTO.getPassword()); // 비밀번호를 평문으로 저장
+
+        // 비밀번호 암호화 (BCrypt) 처리
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        userEntity.setPassword(passwordEncoder.encode(joinDTO.getPassword()));
         userEntity.setPasswordChangeDate(LocalDateTime.now());
         userEntity.setPasswordErrorCount(0);
         userEntity.setLastLoginDate(LocalDateTime.now());

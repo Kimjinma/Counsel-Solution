@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
+
 @Service
 public class CsService {
 
@@ -52,10 +53,10 @@ public class CsService {
         CsEntity csEntity = new CsEntity();
         csEntity.setId(UUID.randomUUID().toString()); // 고유 ID 생성
         csEntity.setScore(totalScore); // 합산 점수 저장
-        csEntity.setSubans(csDTO.getQuestion4()); // 주관식 답변 저장
+        csEntity.setSubAnsOne(csDTO.getQuestion4()); // 주관식 답변 저장
 
-        csEntity.setSubans(csDTO.getQuestion5()); // 주관식 답변 저장
-        csEntity.setSubans(csDTO.getQuestion6()); // 주관식 답변 저장
+        csEntity.setSubAnsTwo(csDTO.getQuestion5()); // 주관식 답변 저장
+        csEntity.setSubAnsThree(csDTO.getQuestion6()); // 주관식 답변 저장
 
         csEntity.setCnsno(requestEntity); // 상담 정보 연결
         csEntity.setEmpNo(requestEntity.getEmp());
@@ -65,6 +66,7 @@ public class CsService {
         requestRepository.save(requestEntity);
         System.out.println("RequestEntity updated with CS_YN = 'Y'");
     }
+
     public boolean isValidCnsNo(Integer cnsNo) {
         RequestEntity requestEntity = requestRepository.findByCnsNo(cnsNo);
         return requestEntity != null; // null 여부로 존재 확인
