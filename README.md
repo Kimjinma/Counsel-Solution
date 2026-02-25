@@ -7,7 +7,6 @@
 * **진행 기간:** 2024.11.01 ~ 2025.01.15
 * **참여 인원:** 팀 프로젝트
 * **본인 담당:** 핵심 인증(Auth), 마이페이지, CS(만족도 조사) 후속 관리 시스템 전담
-* **GitHub:** [https://github.com/Kimjinma/Counsel-Solution](https://github.com/Kimjinma/Counsel-Solution)
 
 ##  Skills & Tech Stack
 * **Backend:** `Java 17`, `Spring Boot`, `Spring Data JPA`, `Spring Security (OAuth2)`
@@ -35,7 +34,7 @@
 
 <details>
 <summary><b>1. 다중 질문 CS(만족도) 데이터 유실 방지</b></summary>
-<div markdown="1">
+<div markdown="1"><br>
 
 * **문제:** 상담 완료 후 다중 질문에 대한 만족도(주관식/객관식)를 DB에 저장할 때, 필드 매핑 오류로 인해 마지막 입력 값만 덮어씌워져 데이터가 유실되는 크리티컬한 버그 발생.
 * **해결:** 항목 단위 Entity/컬럼으로 완벽히 분리 저장하도록 데이터베이스 모델 및 서비스 로직을 재설계.
@@ -45,7 +44,7 @@
 
 <details>
 <summary><b>2. 민감 정보 노출 차단 + 로깅 표준화</b></summary>
-<div markdown="1">
+<div markdown="1"><br>
 
 * **문제:** 초기 개발 시 `application.properties`에 DB 접속 비밀번호 등 하드코딩된 민감 정보가 존재했고, 디버깅용 `System.out.println`이 전역에 난립함.
 * **해결:** DB 비밀번호 등 민감한 정보들을 시스템 환경 변수(Environment Variables)로 격리하여 보안을 강화. 무분별한 `println`을 제거하고 `SLF4J`를 통한 로깅 표준화 기반 마련.
@@ -55,7 +54,7 @@
 
 <details>
 <summary><b>3. ERD 선설계로 연관관계 혼선 정리</b></summary>
-<div markdown="1">
+<div markdown="1"><br>
 
 * **문제:** ERD가 확정되지 않은 상태에서 엔티티부터 작성하여 FK(외래키) 설정과 연관관계 매핑에 혼선이 발생함.
 * **해결:** 구현을 잠시 멈추고 `USER_INFO`를 중심으로 부분 ERD를 먼저 도식화하여 시스템 아키텍처를 시각적으로 구체화함.
