@@ -1,23 +1,24 @@
-# 🎓 종합 상담 솔루션 서비스 (Counsel-Solution)
+# 종합 상담 솔루션 서비스 (Counsel-Solution)
 
 > **대학 내 상담 프로세스(신청-관리-후속 조치)를 웹 기반 플랫폼으로 통합한 종합 솔루션입니다.**
 > 기존의 파편화된 수기 관리 시스템을 개선하여 학생과 상담 기관 모두의 편의성을 높이기 위해 기획되었습니다.
 
-## 📌 프로젝트 정보
+## 프로젝트 정보
 * **진행 기간:** 2024.11.01 ~ 2025.01.15
 * **참여 인원:** 팀 프로젝트
 * **본인 담당:** 핵심 인증(Auth), 마이페이지, CS(만족도 조사) 후속 관리 시스템 전담
 * **GitHub:** [https://github.com/Kimjinma/Counsel-Solution](https://github.com/Kimjinma/Counsel-Solution)
 
-## 🛠 Skills & Tech Stack
-* **Backend:** <img src="https://img.shields.io/badge/Java 17-007396?style=flat&logo=OpenJDK&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=spring-security&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Data JPA-gray?style=flat"/>
-* **Database:** <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white"/>
+##  Skills & Tech Stack
+* **Backend:** `Java 17`, `Spring Boot`, `Spring Data JPA`, `Spring Security (OAuth2)`
+* **Database:** `MySQL`
 * **Template Engine:** `Mustache`, `Thymeleaf`
 * **Docs/Tooling:** `Swagger (springdoc-openapi)`
 
+
 ---
 
-## 💻 나의 역할 및 주요 개발 기능 (My Contribution)
+## 나의 역할 및 주요 개발 기능 (My Contribution)
 
 **1. OAuth2 기반 소셜 통합 인증 및 사용자 보안 구축**
 * Spring Security와 OAuth2(Google, Naver)를 도입하여 학생들의 접근성을 높이고 가입 프로세스를 간소화
@@ -30,7 +31,7 @@
 
 ---
 
-## 🚨 트러블 슈팅 (Troubleshooting)
+## 트러블 슈팅 (Troubleshooting)
 
 <details>
 <summary><b>1. 다중 질문 CS(만족도) 데이터 유실 방지</b></summary>
@@ -64,7 +65,7 @@
 
 ---
 
-## 💡 프로젝트 회고 (Retrospective)
+## 프로젝트 회고 (Retrospective)
 
 **1. "단일 책임 원칙(SRP)과 계층 분리"에 대한 깨달음**
 > 여러 도메인(관리자, 상담사 파트 등) 코드를 하나로 병합하는 과정에서 여러 서비스 레이어가 비대해지고 도메인 경계가 흐려지는 문제를 겪었습니다. 기능의 단순 구현에 집중하다 보니 아키텍처를 깊게 고려하지 못한 결과였습니다. 이 경험을 통해 도메인 단위로 서비스 레이어를 명확히 분리하고, 파사드(Facade) 패턴을 도입해 복잡도를 통제하는 **구조적 설계의 중요성**을 확실하게 체감했습니다.
