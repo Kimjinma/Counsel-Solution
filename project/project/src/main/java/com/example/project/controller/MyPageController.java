@@ -1,6 +1,5 @@
 package com.example.project.controller;
 
-import com.example.project.dto.CounselRequestDTO;
 import com.example.project.dto.StudentRequestDTO;
 import com.example.project.dto.UpdateUserDTO;
 import com.example.project.service.StudentRequestService;
